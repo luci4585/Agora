@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{AFA3D617-6B47-44E9-B35A-4690CE6014A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBlazor", "WebBlazor\WebBlazor.csproj", "{7DFD2416-66DD-43E0-8276-D91E87EC4442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgora", "TestAgora\TestAgora.csproj", "{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AFA3D617-6B47-44E9-B35A-4690CE6014A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA3D617-6B47-44E9-B35A-4690CE6014A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFA3D617-6B47-44E9-B35A-4690CE6014A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DFD2416-66DD-43E0-8276-D91E87EC4442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DFD2416-66DD-43E0-8276-D91E87EC4442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DFD2416-66DD-43E0-8276-D91E87EC4442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DFD2416-66DD-43E0-8276-D91E87EC4442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
