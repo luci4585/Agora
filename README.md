@@ -1,4 +1,5 @@
 #Agora
+
 🏛️ Ágora — Plataforma de Gestión de Capacitaciones
 
 Ágora es un proyecto educativo desarrollado junto a estudiantes de 2.º año de Programación. Su objetivo es brindar una plataforma integral para gestionar capacitaciones de una institución educativa: desde la publicación y la inscripción (online/presencial), hasta la acreditación, cobros y emisión de certificados.
