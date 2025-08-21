@@ -28,6 +28,13 @@ namespace Backend.Controllers
             return await _context.Usuarios.ToListAsync();
         }
 
+        // GET: api/Usuarios
+        [HttpGet("deleteds/")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuariosDeleteds()
+        {
+            return await _context.Usuarios.IgnoreQueryFilters().Where(c => c.IsDeleted.Equals(true)).ToListAsync();
+        }
+
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
@@ -95,6 +102,23 @@ namespace Backend.Controllers
             }
 
             _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT: api/Usuarios/restore/5
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> RestoreUsuario(int id)
+        {
+            var usuario = await _context.Usuarios.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            usuario.IsDeleted = false; //soft restore
+            _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
