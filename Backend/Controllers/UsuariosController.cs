@@ -100,8 +100,9 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.Usuarios.Remove(usuario);
+            usuario.IsDeleted = true; //soft delete
+            usuario.DeleteDate = DateTime.MinValue;
+            _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();

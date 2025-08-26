@@ -100,8 +100,8 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.TiposInscripcionesCapacitaciones.Remove(tipoInscripcionCapacitacion);
+            tipoInscripcionCapacitacion.IsDeleted = true; //soft delete
+            _context.TiposInscripcionesCapacitaciones.Update(tipoInscripcionCapacitacion);
             await _context.SaveChangesAsync();
 
             return NoContent();
