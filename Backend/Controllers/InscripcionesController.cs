@@ -100,8 +100,8 @@ namespace Backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.Inscripciones.Remove(inscripcion);
+            inscripcion.IsDeleted = true; //soft delete
+            _context.Inscripciones.Update(inscripcion);
             await _context.SaveChangesAsync();
 
             return NoContent();

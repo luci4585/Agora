@@ -56,9 +56,14 @@ namespace Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al eliminar el registro: {response.StatusCode}");
+            }
+            return response.IsSuccessStatusCode;
         }
 
         public Task<bool> RestoredAsync(int id)

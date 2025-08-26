@@ -107,5 +107,17 @@ namespace TestAgora
             //imprimimos la inscripcion
             Console.WriteLine($"Id: {result.Id}, Nombre: {result.Nombre}");
         }
+        [Fact]
+        public async void TestDeleteInscripcion()
+        {
+            // Arrange
+            var service = new GenericService<Inscripcion>();
+            int idToDelete = 3; // Id de la inscripcion a eliminar
+            //Act
+            var result = await service.DeleteAsync(idToDelete);
+            //Assert
+            Assert.True(result);
+            Console.WriteLine($"Inscripcion con Id {idToDelete} eliminada: {result}");
+        }
     }
 }
