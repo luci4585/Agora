@@ -1,5 +1,6 @@
 using Service.Models;
 using Service.Services;
+using System.Threading.Tasks;
 
 namespace TestAgora
 {
@@ -89,6 +90,22 @@ namespace TestAgora
                 //imprimimos las capacitaciones
                 Console.WriteLine($"Id: {item.Id}, CapacitacionId: {item.CapacitacionId}");
             }
+        }
+        [Fact]
+        public async void TestGetByIdTipoInscripcion()
+        {
+            // Arrange
+            var service = new GenericService<TipoInscripcion>();
+            int idToTest = 1; // Id de la inscripcion a buscar
+            //Act
+            var result = await service.GetByIdAsync(idToTest);
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<TipoInscripcion>(result);
+            Assert.Equal(idToTest, result.Id);
+            Assert.Equal("Público en general", result.Nombre);
+            //imprimimos la inscripcion
+            Console.WriteLine($"Id: {result.Id}, Nombre: {result.Nombre}");
         }
     }
 }
