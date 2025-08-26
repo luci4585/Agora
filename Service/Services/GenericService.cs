@@ -3,6 +3,7 @@ using Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -46,9 +47,15 @@ namespace Service.Services
             return JsonSerializer.Deserialize<T>(content, _options);
         }
 
-        public Task<T?> AddAsync(T? entity)
+        public async Task<T?> AddAsync(T? entity)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsJsonAsync(_endpoint, entity);
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al agregar el registro: {response.StatusCode} - {content}");
+            }
+            return JsonSerializer.Deserialize<T>(content, _options);
         }
 
         public Task<bool> UpdateAsync(T? entity)
@@ -69,6 +76,17 @@ namespace Service.Services
         public Task<bool> RestoredAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<T>?> GetAllDeletedsAsync()
+        {
+            var response = await _httpClient.GetAsync($"{_endpoint}/deleteds");
+            var content = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al obtener los datos: {response.StatusCode}");
+            }
+            return JsonSerializer.Deserialize<List<T>?>(content, _options);
         }
     }
 }

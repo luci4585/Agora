@@ -119,5 +119,40 @@ namespace TestAgora
             Assert.True(result);
             Console.WriteLine($"Inscripcion con Id {idToDelete} eliminada: {result}");
         }
+        [Fact]
+        public async void TestAddTipoInscripcion() 
+        {
+            // Arrange
+            var service = new GenericService<TipoInscripcion>();
+            var newTipoInscripcion = new TipoInscripcion
+            {
+                Nombre = "Estudiante instituto"
+            };
+            //Act
+            var result = await service.AddAsync(newTipoInscripcion);
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<TipoInscripcion>(result);
+            Assert.Equal(newTipoInscripcion.Nombre, result.Nombre);
+            //imprimimos la inscripcion
+            Console.WriteLine($"Id: {result.Id}, Nombre: {result.Nombre}");
+        }
+        [Fact]
+        public async void TestDeletedsCapacitaciones()
+        {
+            // Arrange
+            var service = new GenericService<Capacitacion>();
+            // Act
+            var result = await service.GetAllDeletedsAsync();
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Capacitacion>>(result);
+            Assert.True(result.Count == 1); // Asumiendo que siempre hay datos en la base de datos
+            foreach (var item in result)
+            {
+                //imprimimos las capacitaciones
+                Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
+            }
+        }
     }
 }
