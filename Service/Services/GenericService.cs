@@ -19,9 +19,9 @@ namespace Service.Services
 
         public GenericService()
         {
-            _endpoint = Properties.Resources.urlApi+ApiEndpoints.GetEndpoint(typeof(T).Name);
             _httpClient = new HttpClient();
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+            _endpoint = Properties.Resources.urlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
             //_endpoint = Properties.Resources.UrlApiLocal+ApiEndpoints.GetEndpoint(typeof(T).Name);
         }
 
