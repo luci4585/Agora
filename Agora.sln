@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBlazor", "WebBlazor\WebB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAgora", "TestAgora\TestAgora.csproj", "{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{DFF381E3-C548-458C-B3B1-AB2EC6DB6AA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71A760F2-8133-4D6D-A5C2-40C2D964C9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF381E3-C548-458C-B3B1-AB2EC6DB6AA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF381E3-C548-458C-B3B1-AB2EC6DB6AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF381E3-C548-458C-B3B1-AB2EC6DB6AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF381E3-C548-458C-B3B1-AB2EC6DB6AA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

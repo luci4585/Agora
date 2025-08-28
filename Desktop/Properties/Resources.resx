@@ -117,16 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApiKeyFirebase" xml:space="preserve">
-    <value>AIzaSyDmwMUxynp0NqfQ7pQ91sRt0AjkjMGqcHw</value>
-  </data>
-  <data name="AuthDomainFirebase" xml:space="preserve">
-    <value>agora-68d31.firebaseapp.com</value>
-  </data>
-  <data name="urlApi" xml:space="preserve">
-    <value>https://apiagoraluci.azurewebsites.net/api/</value>
-  </data>
-  <data name="UrlApiLocal" xml:space="preserve">
-    <value>https://localhost:7250/api/</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="LogoAgora" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogoAgora.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
