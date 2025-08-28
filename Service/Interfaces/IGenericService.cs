@@ -13,6 +13,6 @@ namespace Service.Interfaces
         public Task<T?> AddAsync(T? entity);
         public Task<bool> UpdateAsync(T? entity);
         public Task<bool> DeleteAsync(int id);
-        public Task<bool> RestoredAsync(int id);
+        public Task<bool> RestoreAsync(int id);
     }
 }

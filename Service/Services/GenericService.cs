@@ -22,8 +22,8 @@ namespace Service.Services
             _endpoint = Properties.Resources.urlApi+ApiEndpoints.GetEndpoint(typeof(T).Name);
             _httpClient = new HttpClient();
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+            //_endpoint = Properties.Resources.UrlApiLocal+ApiEndpoints.GetEndpoint(typeof(T).Name);
         }
-
 
         public async Task<List<T>?> GetAllAsync(string? filtro)
         {
@@ -58,9 +58,18 @@ namespace Service.Services
             return JsonSerializer.Deserialize<T>(content, _options);
         }
 
-        public Task<bool> UpdateAsync(T? entity)
+        public async Task<bool> UpdateAsync(T? entity)
         {
-            throw new NotImplementedException();
+            var idValue = entity.GetType().GetProperty("Id").GetValue(entity);
+            var response=await _httpClient.PutAsJsonAsync($"{ _endpoint}/{idValue}", entity);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Hubo un problema al actualizar");
+            }
+            else 
+            { 
+                return response.IsSuccessStatusCode;
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -73,9 +82,14 @@ namespace Service.Services
             return response.IsSuccessStatusCode;
         }
 
-        public Task<bool> RestoredAsync(int id)
+        public async Task<bool> RestoreAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PutAsync($"{_endpoint}/restore/{id}",null);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al restaurar el dato: {response.StatusCode}");
+            }
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<List<T>?> GetAllDeletedsAsync()

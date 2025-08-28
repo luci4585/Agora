@@ -120,7 +120,7 @@ namespace TestAgora
             Console.WriteLine($"Inscripcion con Id {idToDelete} eliminada: {result}");
         }
         [Fact]
-        public async void TestAddTipoInscripcion() 
+        public async void TestAddTipoInscripcion()
         {
             // Arrange
             var service = new GenericService<TipoInscripcion>();
@@ -153,6 +153,34 @@ namespace TestAgora
                 //imprimimos las capacitaciones
                 Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
             }
+        }
+        [Fact]
+        public async void TestUpdateTipoInscripcion()
+        {
+            //arrange
+            var service=new GenericService<TipoInscripcion>();
+            var tipoInscripcionAModificar = new TipoInscripcion()
+            {
+                Id = 2,
+                Nombre = "Docente Instituto"
+            };
+            //action
+            var result=await service.UpdateAsync(tipoInscripcionAModificar);
+            //assert
+            Assert.NotNull(result);
+            Assert.True(result);
+        }
+        [Fact]
+        public async void TestRestoreCapacitacion()
+        {
+            // Arrange
+            var service = new GenericService<Capacitacion>();
+            int idToRestore = 3; // Id de la capacitacion a restaurar
+            //Act
+            var result = await service.RestoreAsync(idToRestore);
+            //Assert
+            Assert.True(result);
+            Console.WriteLine($"Capacitacion con Id {idToRestore} restaurada: {result}");
         }
     }
 }

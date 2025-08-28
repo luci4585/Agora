@@ -120,4 +120,7 @@
   <data name="urlApi" xml:space="preserve">
     <value>https://apiagoraluci.azurewebsites.net/api/</value>
   </data>
+  <data name="UrlApiLocal" xml:space="preserve">
+    <value>https://localhost:7250/api/</value>
+  </data>
 </root>
