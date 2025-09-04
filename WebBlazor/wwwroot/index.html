@@ -56,6 +56,8 @@
             },
             createUserWithEmailAndPassword: async function (email, password, displayName) {
                 try {
+                    //imprimo por consola los parametros recibidos
+                    console.log(`email${email}") password: ${password} displayName: ${displayName}`);
                     const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
                     // El usuario se ha creado correctamente
                     const user = userCredential.user;
@@ -65,7 +67,7 @@
                         displayName: displayName
                     });
                     return userCredential.user.uid;
-                    // Enviar correo de verificación
+                    //Enviar correo de verificación
                     //user.sendEmailVerification()
                     //    .then(() => {
                     //        console.log('Correo de verificación enviado.');
