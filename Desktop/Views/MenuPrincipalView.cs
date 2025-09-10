@@ -20,5 +20,12 @@ namespace Desktop
             usuariosView.MdiParent = this;
             usuariosView.Show();
         }
+
+        private void SubMenuCapacitaciones_Click(object sender, EventArgs e)
+        {
+            var capacitacionesView = new CapacitacionesView();
+            capacitacionesView.MdiParent = this;
+            capacitacionesView.Show();
+        }
     }
 }
