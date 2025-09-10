@@ -38,7 +38,6 @@
             BtnSalir = new FontAwesome.Sharp.IconButton();
             BtnModificar = new FontAwesome.Sharp.IconButton();
             BtnAgregar = new FontAwesome.Sharp.IconButton();
-            FilmPicture = new PictureBox();
             GridPeliculas = new DataGridView();
             TabPageAgregarEditar = new TabPage();
             label7 = new Label();
@@ -60,7 +59,6 @@
             TimerStatusBar = new System.Windows.Forms.Timer(components);
             TabControl.SuspendLayout();
             TabPageLista.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)FilmPicture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)GridPeliculas).BeginInit();
             TabPageAgregarEditar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumericCalificacion).BeginInit();
@@ -89,7 +87,6 @@
             TabPageLista.Controls.Add(BtnSalir);
             TabPageLista.Controls.Add(BtnModificar);
             TabPageLista.Controls.Add(BtnAgregar);
-            TabPageLista.Controls.Add(FilmPicture);
             TabPageLista.Controls.Add(GridPeliculas);
             TabPageLista.Location = new Point(4, 29);
             TabPageLista.Name = "TabPageLista";
@@ -191,16 +188,6 @@
             BtnAgregar.UseVisualStyleBackColor = true;
             BtnAgregar.Click += BtnAgregar_Click;
             // 
-            // FilmPicture
-            // 
-            FilmPicture.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            FilmPicture.Location = new Point(580, 68);
-            FilmPicture.Name = "FilmPicture";
-            FilmPicture.Size = new Size(364, 350);
-            FilmPicture.SizeMode = PictureBoxSizeMode.StretchImage;
-            FilmPicture.TabIndex = 6;
-            FilmPicture.TabStop = false;
-            // 
             // GridPeliculas
             // 
             GridPeliculas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -211,7 +198,7 @@
             GridPeliculas.Name = "GridPeliculas";
             GridPeliculas.RowHeadersWidth = 51;
             GridPeliculas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            GridPeliculas.Size = new Size(571, 350);
+            GridPeliculas.Size = new Size(941, 350);
             GridPeliculas.TabIndex = 1;
             GridPeliculas.SelectionChanged += GridPeliculas_SelectionChanged_1;
             // 
@@ -403,7 +390,6 @@
             TabControl.ResumeLayout(false);
             TabPageLista.ResumeLayout(false);
             TabPageLista.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)FilmPicture).EndInit();
             ((System.ComponentModel.ISupportInitialize)GridPeliculas).EndInit();
             TabPageAgregarEditar.ResumeLayout(false);
             TabPageAgregarEditar.PerformLayout();
@@ -421,7 +407,6 @@
         private TabControl TabControl;
         private TabPage TabPageLista;
         private TabPage TabPageAgregarEditar;
-        private PictureBox FilmPicture;
         private DataGridView GridPeliculas;
         private FontAwesome.Sharp.IconButton BtnModificar;
         private FontAwesome.Sharp.IconButton BtnAgregar;
