@@ -15,15 +15,23 @@ namespace Desktop.Views
         public CapacitacionesView()
         {
             InitializeComponent();
-            _=GetAllData();
+            _ = GetAllData();
         }
 
         private async Task GetAllData()
         {
-            _capacitaciones = await _capacitacionService.GetAllAsync();
+            if (CheckVerEliminados.Checked)
+            {
+                _capacitaciones = await _capacitacionService.GetAllDeletedsAsync();
+            }
+            else
+            {
+                _capacitaciones = await _capacitacionService.GetAllAsync();
+            }
             GridPeliculas.DataSource = _capacitaciones;
             GridPeliculas.Columns["Id"].Visible = false;
             GridPeliculas.Columns["IsDeleted"].Visible = false;
+
         }
 
         private void GridPeliculas_SelectionChanged_1(object sender, EventArgs e)
@@ -141,7 +149,7 @@ namespace Desktop.Views
 
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
-           // GridPeliculas.DataSource = peliculas.Where(p => p.titulo.ToUpper().Contains(TxtBuscar.Text.ToUpper())).ToList();
+            // GridPeliculas.DataSource = peliculas.Where(p => p.titulo.ToUpper().Contains(TxtBuscar.Text.ToUpper())).ToList();
         }
 
         private void TxtBuscar_TextChanged(object sender, EventArgs e)
@@ -158,6 +166,39 @@ namespace Desktop.Views
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void CheckVerEliminados_CheckedChanged(object sender, EventArgs e)
+        {
+            await GetAllData();
+        }
+
+        private async void BtnRestaurar_Click(object sender, EventArgs e)
+        {
+            if(!CheckVerEliminados.Checked) return;
+            //chequeamos que haya películas seleccionadas
+            if (GridPeliculas.Rows.Count > 0 && GridPeliculas.SelectedRows.Count > 0)
+            {
+                Capacitacion entitySelected = (Capacitacion)GridPeliculas.SelectedRows[0].DataBoundItem;
+                var respuesta = MessageBox.Show($"¿Está seguro de recuperar la capacitación {entitySelected.Nombre} seleccionada?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    if (await _capacitacionService.RestoreAsync(entitySelected.Id))
+                    {
+                        LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} restaurada correctamente";
+                        TimerStatusBar.Start();
+                        await GetAllData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al restaurar la capacitacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una capacitación para restaurar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 } 

@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             TabControl = new TabControl();
             TabPageLista = new TabPage();
+            BtnRestaurar = new FontAwesome.Sharp.IconButton();
+            CheckVerEliminados = new CheckBox();
             BtnEliminar = new FontAwesome.Sharp.IconButton();
             BtnBuscar = new FontAwesome.Sharp.IconButton();
             TxtBuscar = new TextBox();
@@ -80,6 +82,8 @@
             // 
             // TabPageLista
             // 
+            TabPageLista.Controls.Add(BtnRestaurar);
+            TabPageLista.Controls.Add(CheckVerEliminados);
             TabPageLista.Controls.Add(BtnEliminar);
             TabPageLista.Controls.Add(BtnBuscar);
             TabPageLista.Controls.Add(TxtBuscar);
@@ -96,13 +100,41 @@
             TabPageLista.Text = "Lista";
             TabPageLista.UseVisualStyleBackColor = true;
             // 
+            // BtnRestaurar
+            // 
+            BtnRestaurar.Anchor = AnchorStyles.Right;
+            BtnRestaurar.IconChar = FontAwesome.Sharp.IconChar.Reply;
+            BtnRestaurar.IconColor = Color.Black;
+            BtnRestaurar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnRestaurar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnRestaurar.Location = new Point(970, 264);
+            BtnRestaurar.Name = "BtnRestaurar";
+            BtnRestaurar.Size = new Size(137, 53);
+            BtnRestaurar.TabIndex = 19;
+            BtnRestaurar.Text = "&Restaurar";
+            BtnRestaurar.TextAlign = ContentAlignment.MiddleRight;
+            BtnRestaurar.UseVisualStyleBackColor = true;
+            BtnRestaurar.Click += BtnRestaurar_Click;
+            // 
+            // CheckVerEliminados
+            // 
+            CheckVerEliminados.AutoSize = true;
+            CheckVerEliminados.Location = new Point(782, 24);
+            CheckVerEliminados.Name = "CheckVerEliminados";
+            CheckVerEliminados.Size = new Size(129, 24);
+            CheckVerEliminados.TabIndex = 18;
+            CheckVerEliminados.Text = "Ver eliminados";
+            CheckVerEliminados.UseVisualStyleBackColor = true;
+            CheckVerEliminados.CheckedChanged += CheckVerEliminados_CheckedChanged;
+            // 
             // BtnEliminar
             // 
+            BtnEliminar.Anchor = AnchorStyles.Right;
             BtnEliminar.IconChar = FontAwesome.Sharp.IconChar.Trash;
             BtnEliminar.IconColor = Color.Black;
             BtnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnEliminar.Location = new Point(970, 254);
+            BtnEliminar.Location = new Point(970, 196);
             BtnEliminar.Name = "BtnEliminar";
             BtnEliminar.Size = new Size(137, 53);
             BtnEliminar.TabIndex = 17;
@@ -113,6 +145,7 @@
             // 
             // BtnBuscar
             // 
+            BtnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnBuscar.IconChar = FontAwesome.Sharp.IconChar.Search;
             BtnBuscar.IconColor = Color.Black;
             BtnBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -130,7 +163,7 @@
             // 
             TxtBuscar.Location = new Point(82, 21);
             TxtBuscar.Name = "TxtBuscar";
-            TxtBuscar.Size = new Size(862, 27);
+            TxtBuscar.Size = new Size(681, 27);
             TxtBuscar.TabIndex = 15;
             TxtBuscar.TextChanged += TxtBuscar_TextChanged;
             // 
@@ -145,6 +178,7 @@
             // 
             // BtnSalir
             // 
+            BtnSalir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnSalir.IconChar = FontAwesome.Sharp.IconChar.DoorOpen;
             BtnSalir.IconColor = Color.Black;
             BtnSalir.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -160,11 +194,12 @@
             // 
             // BtnModificar
             // 
+            BtnModificar.Anchor = AnchorStyles.Right;
             BtnModificar.IconChar = FontAwesome.Sharp.IconChar.Pencil;
             BtnModificar.IconColor = Color.Black;
             BtnModificar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnModificar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnModificar.Location = new Point(970, 174);
+            BtnModificar.Location = new Point(970, 135);
             BtnModificar.Name = "BtnModificar";
             BtnModificar.Size = new Size(137, 55);
             BtnModificar.TabIndex = 12;
@@ -175,11 +210,12 @@
             // 
             // BtnAgregar
             // 
+            BtnAgregar.Anchor = AnchorStyles.Right;
             BtnAgregar.IconChar = FontAwesome.Sharp.IconChar.FileCirclePlus;
             BtnAgregar.IconColor = Color.Black;
             BtnAgregar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnAgregar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnAgregar.Location = new Point(970, 94);
+            BtnAgregar.Location = new Point(970, 76);
             BtnAgregar.Name = "BtnAgregar";
             BtnAgregar.Size = new Size(137, 53);
             BtnAgregar.TabIndex = 11;
@@ -435,5 +471,7 @@
         private System.Windows.Forms.Timer TimerStatusBar;
         private Label label7;
         private ComboBox ComboPaises;
+        private CheckBox CheckVerEliminados;
+        private FontAwesome.Sharp.IconButton BtnRestaurar;
     }
 }
