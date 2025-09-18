@@ -21,8 +21,8 @@ namespace Service.Services
         {
             _httpClient = new HttpClient();
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
-            //_endpoint = Properties.Resources.urlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
-            _endpoint = Properties.Resources.UrlApiLocal+ApiEndpoints.GetEndpoint(typeof(T).Name);
+            _endpoint = Properties.Resources.urlApi + ApiEndpoints.GetEndpoint(typeof(T).Name);
+            //_endpoint = Properties.Resources.UrlApiLocal+ApiEndpoints.GetEndpoint(typeof(T).Name);
         }
 
         public async Task<List<T>?> GetAllAsync(string? filtro="")
