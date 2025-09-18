@@ -40,20 +40,21 @@
             BtnSalir = new FontAwesome.Sharp.IconButton();
             BtnModificar = new FontAwesome.Sharp.IconButton();
             BtnAgregar = new FontAwesome.Sharp.IconButton();
-            GridPeliculas = new DataGridView();
+            DataGrid = new DataGridView();
             TabPageAgregarEditar = new TabPage();
-            label7 = new Label();
-            ComboPaises = new ComboBox();
-            label6 = new Label();
-            NumericCalificacion = new NumericUpDown();
-            TxtPortada = new TextBox();
-            label5 = new Label();
-            NumericDuracion = new NumericUpDown();
-            label4 = new Label();
-            TxtTitulo = new TextBox();
+            checkInscripcionAbierta = new CheckBox();
             label3 = new Label();
-            BtnCancelar = new FontAwesome.Sharp.IconButton();
+            label7 = new Label();
             BtnGuardar = new FontAwesome.Sharp.IconButton();
+            DateTimeFechaHora = new DateTimePicker();
+            BtnCancelar = new FontAwesome.Sharp.IconButton();
+            TxtPonente = new TextBox();
+            TxtNombre = new TextBox();
+            label6 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            TxtDetalle = new TextBox();
+            NumericCupo = new NumericUpDown();
             panel1 = new Panel();
             label1 = new Label();
             statusStrip1 = new StatusStrip();
@@ -61,10 +62,9 @@
             TimerStatusBar = new System.Windows.Forms.Timer(components);
             TabControl.SuspendLayout();
             TabPageLista.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)GridPeliculas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             TabPageAgregarEditar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericCalificacion).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericDuracion).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NumericCupo).BeginInit();
             panel1.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -91,7 +91,7 @@
             TabPageLista.Controls.Add(BtnSalir);
             TabPageLista.Controls.Add(BtnModificar);
             TabPageLista.Controls.Add(BtnAgregar);
-            TabPageLista.Controls.Add(GridPeliculas);
+            TabPageLista.Controls.Add(DataGrid);
             TabPageLista.Location = new Point(4, 29);
             TabPageLista.Name = "TabPageLista";
             TabPageLista.Padding = new Padding(3);
@@ -224,34 +224,35 @@
             BtnAgregar.UseVisualStyleBackColor = true;
             BtnAgregar.Click += BtnAgregar_Click;
             // 
-            // GridPeliculas
+            // DataGrid
             // 
-            GridPeliculas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            GridPeliculas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            GridPeliculas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GridPeliculas.Location = new Point(3, 68);
-            GridPeliculas.MultiSelect = false;
-            GridPeliculas.Name = "GridPeliculas";
-            GridPeliculas.RowHeadersWidth = 51;
-            GridPeliculas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            GridPeliculas.Size = new Size(941, 350);
-            GridPeliculas.TabIndex = 1;
-            GridPeliculas.SelectionChanged += GridPeliculas_SelectionChanged_1;
+            DataGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            DataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGrid.Location = new Point(3, 68);
+            DataGrid.MultiSelect = false;
+            DataGrid.Name = "DataGrid";
+            DataGrid.RowHeadersWidth = 51;
+            DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DataGrid.Size = new Size(941, 350);
+            DataGrid.TabIndex = 1;
+            DataGrid.SelectionChanged += GridPeliculas_SelectionChanged_1;
             // 
             // TabPageAgregarEditar
             // 
-            TabPageAgregarEditar.Controls.Add(label7);
-            TabPageAgregarEditar.Controls.Add(ComboPaises);
-            TabPageAgregarEditar.Controls.Add(label6);
-            TabPageAgregarEditar.Controls.Add(NumericCalificacion);
-            TabPageAgregarEditar.Controls.Add(TxtPortada);
-            TabPageAgregarEditar.Controls.Add(label5);
-            TabPageAgregarEditar.Controls.Add(NumericDuracion);
-            TabPageAgregarEditar.Controls.Add(label4);
-            TabPageAgregarEditar.Controls.Add(TxtTitulo);
+            TabPageAgregarEditar.Controls.Add(checkInscripcionAbierta);
             TabPageAgregarEditar.Controls.Add(label3);
-            TabPageAgregarEditar.Controls.Add(BtnCancelar);
+            TabPageAgregarEditar.Controls.Add(label7);
             TabPageAgregarEditar.Controls.Add(BtnGuardar);
+            TabPageAgregarEditar.Controls.Add(DateTimeFechaHora);
+            TabPageAgregarEditar.Controls.Add(BtnCancelar);
+            TabPageAgregarEditar.Controls.Add(TxtPonente);
+            TabPageAgregarEditar.Controls.Add(TxtNombre);
+            TabPageAgregarEditar.Controls.Add(label6);
+            TabPageAgregarEditar.Controls.Add(label4);
+            TabPageAgregarEditar.Controls.Add(label5);
+            TabPageAgregarEditar.Controls.Add(TxtDetalle);
+            TabPageAgregarEditar.Controls.Add(NumericCupo);
             TabPageAgregarEditar.Location = new Point(4, 29);
             TabPageAgregarEditar.Name = "TabPageAgregarEditar";
             TabPageAgregarEditar.Padding = new Padding(3);
@@ -260,119 +261,144 @@
             TabPageAgregarEditar.Text = "Agregar/Editar";
             TabPageAgregarEditar.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // checkInscripcionAbierta
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(717, 198);
-            label7.Name = "label7";
-            label7.Size = new Size(37, 20);
-            label7.TabIndex = 24;
-            label7.Text = "País:";
-            // 
-            // ComboPaises
-            // 
-            ComboPaises.DropDownStyle = ComboBoxStyle.DropDownList;
-            ComboPaises.FormattingEnabled = true;
-            ComboPaises.Location = new Point(783, 195);
-            ComboPaises.Name = "ComboPaises";
-            ComboPaises.Size = new Size(221, 28);
-            ComboPaises.TabIndex = 23;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(75, 240);
-            label6.Name = "label6";
-            label6.Size = new Size(89, 20);
-            label6.TabIndex = 22;
-            label6.Text = "Calificación:";
-            // 
-            // NumericCalificacion
-            // 
-            NumericCalificacion.Location = new Point(188, 238);
-            NumericCalificacion.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
-            NumericCalificacion.Name = "NumericCalificacion";
-            NumericCalificacion.Size = new Size(150, 27);
-            NumericCalificacion.TabIndex = 21;
-            // 
-            // TxtPortada
-            // 
-            TxtPortada.Location = new Point(158, 115);
-            TxtPortada.Name = "TxtPortada";
-            TxtPortada.Size = new Size(846, 27);
-            TxtPortada.TabIndex = 20;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(75, 186);
-            label5.Name = "label5";
-            label5.Size = new Size(149, 20);
-            label5.TabIndex = 19;
-            label5.Text = "Duración en minutos:";
-            // 
-            // NumericDuracion
-            // 
-            NumericDuracion.Location = new Point(230, 184);
-            NumericDuracion.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
-            NumericDuracion.Name = "NumericDuracion";
-            NumericDuracion.Size = new Size(150, 27);
-            NumericDuracion.TabIndex = 18;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(75, 115);
-            label4.Name = "label4";
-            label4.Size = new Size(63, 20);
-            label4.TabIndex = 16;
-            label4.Text = "Portada:";
-            // 
-            // TxtTitulo
-            // 
-            TxtTitulo.Location = new Point(158, 50);
-            TxtTitulo.Name = "TxtTitulo";
-            TxtTitulo.Size = new Size(846, 27);
-            TxtTitulo.TabIndex = 15;
+            checkInscripcionAbierta.AutoSize = true;
+            checkInscripcionAbierta.Location = new Point(249, 294);
+            checkInscripcionAbierta.Name = "checkInscripcionAbierta";
+            checkInscripcionAbierta.Size = new Size(155, 24);
+            checkInscripcionAbierta.TabIndex = 5;
+            checkInscripcionAbierta.Text = "Inscripcion Abierta";
+            checkInscripcionAbierta.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(75, 53);
+            label3.Location = new Point(172, 62);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(50, 20);
-            label3.TabIndex = 14;
-            label3.Text = "Título:";
+            label3.Size = new Size(67, 20);
+            label3.TabIndex = 30;
+            label3.Text = "Nombre:";
             // 
-            // BtnCancelar
+            // label7
             // 
-            BtnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
-            BtnCancelar.IconColor = Color.Black;
-            BtnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnCancelar.Location = new Point(529, 340);
-            BtnCancelar.Name = "BtnCancelar";
-            BtnCancelar.Size = new Size(137, 53);
-            BtnCancelar.TabIndex = 13;
-            BtnCancelar.Text = "&Cancelar";
-            BtnCancelar.TextAlign = ContentAlignment.MiddleRight;
-            BtnCancelar.UseVisualStyleBackColor = true;
-            BtnCancelar.Click += BtnCancelar_Click;
+            label7.AutoSize = true;
+            label7.Location = new Point(141, 206);
+            label7.Margin = new Padding(2, 0, 2, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(98, 20);
+            label7.TabIndex = 36;
+            label7.Text = "Fecha y Hora:";
             // 
             // BtnGuardar
             // 
+            BtnGuardar.Anchor = AnchorStyles.Bottom;
             BtnGuardar.IconChar = FontAwesome.Sharp.IconChar.Save;
             BtnGuardar.IconColor = Color.Black;
             BtnGuardar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnGuardar.Location = new Point(345, 340);
+            BtnGuardar.Location = new Point(413, 312);
+            BtnGuardar.Margin = new Padding(2);
             BtnGuardar.Name = "BtnGuardar";
-            BtnGuardar.Size = new Size(137, 53);
-            BtnGuardar.TabIndex = 12;
+            BtnGuardar.Size = new Size(109, 43);
+            BtnGuardar.TabIndex = 6;
             BtnGuardar.Text = "&Guardar";
             BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
             BtnGuardar.UseVisualStyleBackColor = true;
-            BtnGuardar.Click += BtnGuardar_Click;
+            BtnGuardar.Click += BtnGuardar_Click_1;
+            // 
+            // DateTimeFechaHora
+            // 
+            DateTimeFechaHora.CustomFormat = "dd/MM/yyyy  HH:mm";
+            DateTimeFechaHora.Format = DateTimePickerFormat.Custom;
+            DateTimeFechaHora.Location = new Point(249, 200);
+            DateTimeFechaHora.Name = "DateTimeFechaHora";
+            DateTimeFechaHora.ShowUpDown = true;
+            DateTimeFechaHora.Size = new Size(242, 27);
+            DateTimeFechaHora.TabIndex = 3;
+            // 
+            // BtnCancelar
+            // 
+            BtnCancelar.Anchor = AnchorStyles.Bottom;
+            BtnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
+            BtnCancelar.IconColor = Color.Black;
+            BtnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnCancelar.Location = new Point(573, 312);
+            BtnCancelar.Margin = new Padding(2);
+            BtnCancelar.Name = "BtnCancelar";
+            BtnCancelar.Size = new Size(109, 43);
+            BtnCancelar.TabIndex = 7;
+            BtnCancelar.Text = "&Cancelar";
+            BtnCancelar.TextAlign = ContentAlignment.MiddleRight;
+            BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.Click += BtnCancelar_Click_1;
+            // 
+            // TxtPonente
+            // 
+            TxtPonente.ForeColor = Color.Black;
+            TxtPonente.Location = new Point(249, 153);
+            TxtPonente.Margin = new Padding(2);
+            TxtPonente.Name = "TxtPonente";
+            TxtPonente.Size = new Size(718, 27);
+            TxtPonente.TabIndex = 2;
+            // 
+            // TxtNombre
+            // 
+            TxtNombre.Location = new Point(249, 59);
+            TxtNombre.Margin = new Padding(2);
+            TxtNombre.Name = "TxtNombre";
+            TxtNombre.Size = new Size(718, 27);
+            TxtNombre.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(180, 158);
+            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(59, 20);
+            label6.TabIndex = 35;
+            label6.Text = "Orador:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(179, 110);
+            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(60, 20);
+            label4.TabIndex = 33;
+            label4.Text = "Detalle:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(192, 254);
+            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(47, 20);
+            label5.TabIndex = 34;
+            label5.Text = "Cupo:";
+            // 
+            // TxtDetalle
+            // 
+            TxtDetalle.Location = new Point(249, 106);
+            TxtDetalle.Margin = new Padding(2);
+            TxtDetalle.Name = "TxtDetalle";
+            TxtDetalle.Size = new Size(718, 27);
+            TxtDetalle.TabIndex = 1;
+            // 
+            // NumericCupo
+            // 
+            NumericCupo.Location = new Point(249, 247);
+            NumericCupo.Margin = new Padding(2);
+            NumericCupo.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+            NumericCupo.Name = "NumericCupo";
+            NumericCupo.Size = new Size(144, 27);
+            NumericCupo.TabIndex = 4;
+            NumericCupo.TextAlign = HorizontalAlignment.Right;
             // 
             // panel1
             // 
@@ -426,11 +452,10 @@
             TabControl.ResumeLayout(false);
             TabPageLista.ResumeLayout(false);
             TabPageLista.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)GridPeliculas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             TabPageAgregarEditar.ResumeLayout(false);
             TabPageAgregarEditar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericCalificacion).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericDuracion).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NumericCupo).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             statusStrip1.ResumeLayout(false);
@@ -443,7 +468,7 @@
         private TabControl TabControl;
         private TabPage TabPageLista;
         private TabPage TabPageAgregarEditar;
-        private DataGridView GridPeliculas;
+        private DataGridView DataGrid;
         private FontAwesome.Sharp.IconButton BtnModificar;
         private FontAwesome.Sharp.IconButton BtnAgregar;
         private Panel panel1;
@@ -453,25 +478,26 @@
         private Label label2;
         private FontAwesome.Sharp.IconButton BtnBuscar;
         private FontAwesome.Sharp.IconButton BtnEliminar;
-        private FontAwesome.Sharp.IconButton BtnCancelar;
-        private FontAwesome.Sharp.IconButton BtnGuardar;
         private TextBox textBox4;
-        private Label label6;
         private TextBox textBox3;
-        private Label label5;
         private TextBox textBox2;
-        private Label label4;
-        private TextBox TxtTitulo;
-        private Label label3;
-        private NumericUpDown NumericDuracion;
-        private TextBox TxtPortada;
-        private NumericUpDown NumericCalificacion;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel LabelStatusMessage;
         private System.Windows.Forms.Timer TimerStatusBar;
-        private Label label7;
-        private ComboBox ComboPaises;
         private CheckBox CheckVerEliminados;
         private FontAwesome.Sharp.IconButton BtnRestaurar;
+        private CheckBox checkInscripcionAbierta;
+        private Label label3;
+        private Label label7;
+        private FontAwesome.Sharp.IconButton BtnGuardar;
+        private DateTimePicker DateTimeFechaHora;
+        private FontAwesome.Sharp.IconButton BtnCancelar;
+        private TextBox TxtPonente;
+        private TextBox TxtNombre;
+        private Label label6;
+        private Label label4;
+        private Label label5;
+        private TextBox TxtDetalle;
+        private NumericUpDown NumericCupo;
     }
 }

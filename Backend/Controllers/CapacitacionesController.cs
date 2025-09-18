@@ -23,9 +23,9 @@ namespace Backend.Controllers
 
         // GET: api/Capacitaciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitaciones()
+        public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitaciones([FromQuery] string? filter = "")
         {
-            return await _context.Capacitaciones.ToListAsync();
+            return await _context.Capacitaciones.Where(c => c.Nombre.Contains(filter) || c.Detalle.Contains(filter) || c.Ponente.Contains(filter)).AsNoTracking().ToListAsync();
         }
 
         // GET: api/Capacitaciones
