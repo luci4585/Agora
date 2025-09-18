@@ -36,6 +36,7 @@
 @code {
     private bool collapseNavMenu = true;
     private bool isAuthenticated = false;
+    private string textBtnLogin => isAuthenticated ? "Cerrar sesión" : "Iniciar sesión";
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
