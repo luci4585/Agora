@@ -1,0 +1,87 @@
+﻿@page "/NuevoEditarCapacitacion"
+@inject IGenericService<Capacitacion> _capacitacionService
+@inject NavigationManager NavigationManager
+
+@if (capacitacion == null )
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <h3 >@tituloPagina</h3>
+    <div style="background-color: @(isEditing ? "lightyellow": "white")">
+        <EditForm Model="capacitacion" OnValidSubmit="Guardar">
+            <DataAnnotationsValidator />
+            <div class="container">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="form-label">Nombre:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Detalle:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Detalle" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ponente:</label>
+                        <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Ponente" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha y hora:</label>
+                        <InputDate class="form-control mb-2" @bind-Value="capacitacion.FechaHora" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cupo:</label>
+                        <InputNumber class="form-control mb-2" type="text" @bind-Value="capacitacion.Cupo" />
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="form-label">Inscripción Abierta:</label>
+                        <InputCheckbox class="form-check" @bind-Value="capacitacion.InscripcionAbierta" />
+                    </div>
+                </div>
+                <ValidationSummary />
+                <button class="btn btn-primary" type="submit">@guardarButtonText</button>
+                <button class="btn btn-danger" @onclick="Cancelar">Cancelar</button>
+            </div>
+        </EditForm>
+    </div>
+}
+@code {
+    [SupplyParameterFromQuery]
+    [Parameter]
+    public int? idCapacitacion { get; set; }
+    private Capacitacion capacitacion;
+
+    private bool isEditing => idCapacitacion != null;
+    private string guardarButtonText => isEditing ? "Actualizar" : "Agregar";
+    private string tituloPagina => isEditing ? "Editando Capacitacion" : "Agregando nueva Capacitacion";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idCapacitacion != null)
+        {
+            capacitacion = await _capacitacionService.GetByIdAsync((int)idCapacitacion);
+        }
+        else
+        {
+            capacitacion = new Capacitacion();
+        }
+    }
+
+    private async Task Guardar()
+    {
+        //logger.LogInformation(campania.PropertiesToString());
+        if (idCapacitacion != null)
+            await _capacitacionService.UpdateAsync(capacitacion);
+        else
+            await _capacitacionService.AddAsync(capacitacion);
+        NavigationManager.NavigateTo($"capacitaciones");
+    }
+
+    private async Task Cancelar()
+    {
+        NavigationManager.NavigateTo($"capacitaciones");
+    }
+}
