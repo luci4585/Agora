@@ -122,7 +122,7 @@ namespace Desktop.Views
 
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
-            // GridPeliculas.DataSource = peliculas.Where(p => p.titulo.ToUpper().Contains(TxtBuscar.Text.ToUpper())).ToList();
+            DataGrid.DataSource = _capacitaciones.Where(p => p.Nombre.ToUpper().Contains(TxtBuscar.Text.ToUpper())).ToList();
         }
 
         private void TxtBuscar_TextChanged(object sender, EventArgs e)
