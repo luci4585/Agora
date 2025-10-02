@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AgoraContext))]
-    [Migration("20251002200725_correccionInscripcion")]
-    partial class correccionInscripcion
+    [Migration("20251002202326_inicio")]
+    partial class inicio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace Backend.Migrations
                             Id = 1,
                             Cupo = 30,
                             Detalle = "Aprende los conceptos básicos de programación.",
-                            FechaHora = new DateTime(2025, 10, 12, 17, 7, 22, 102, DateTimeKind.Local).AddTicks(1328),
+                            FechaHora = new DateTime(2025, 10, 12, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6797),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Introducción a la Programación",
@@ -78,7 +78,7 @@ namespace Backend.Migrations
                             Id = 2,
                             Cupo = 25,
                             Detalle = "Crea webapps modernas con ASP.NET Core.",
-                            FechaHora = new DateTime(2025, 10, 22, 17, 7, 22, 102, DateTimeKind.Local).AddTicks(1353),
+                            FechaHora = new DateTime(2025, 10, 22, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6825),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Desarrollo Web con ASP.NET Core",
@@ -89,7 +89,7 @@ namespace Backend.Migrations
                             Id = 3,
                             Cupo = 20,
                             Detalle = "Aprende a manejar bases de datos con SQL.",
-                            FechaHora = new DateTime(2025, 10, 17, 17, 7, 22, 102, DateTimeKind.Local).AddTicks(1356),
+                            FechaHora = new DateTime(2025, 10, 17, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6828),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Curso SQL",
@@ -100,7 +100,7 @@ namespace Backend.Migrations
                             Id = 4,
                             Cupo = 30,
                             Detalle = "Domina JavaScript para desarrollo web.",
-                            FechaHora = new DateTime(2025, 10, 27, 17, 7, 22, 102, DateTimeKind.Local).AddTicks(1359),
+                            FechaHora = new DateTime(2025, 10, 27, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6831),
                             InscripcionAbierta = true,
                             IsDeleted = false,
                             Nombre = "Taller de JavaScript",
@@ -156,9 +156,20 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Acreditado = false,
+                            Acreditado = true,
                             CapacitacionId = 1,
-                            Importe = 15000m,
+                            Importe = 0m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Acreditado = true,
+                            CapacitacionId = 1,
+                            Importe = 12000m,
                             IsDeleted = false,
                             Pagado = false,
                             TipoInscripcionId = 1,
@@ -166,9 +177,9 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             Acreditado = true,
-                            CapacitacionId = 2,
+                            CapacitacionId = 1,
                             Importe = 0m,
                             IsDeleted = false,
                             Pagado = false,
@@ -177,24 +188,79 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 4,
+                            Acreditado = true,
+                            CapacitacionId = 2,
+                            Importe = 8000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 2,
+                            UsuarioId = 5
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Acreditado = true,
+                            CapacitacionId = 2,
+                            Importe = 12000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
                             Acreditado = false,
                             CapacitacionId = 3,
                             Importe = 0m,
                             IsDeleted = false,
                             Pagado = false,
-                            TipoInscripcionId = 2,
+                            TipoInscripcionId = 3,
+                            UsuarioId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
+                            UsuarioId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 15000m,
+                            IsDeleted = false,
+                            Pagado = false,
+                            TipoInscripcionId = 1,
                             UsuarioId = 4
                         },
                         new
                         {
-                            Id = 4,
-                            Acreditado = true,
-                            CapacitacionId = 4,
-                            Importe = 12000m,
+                            Id = 10,
+                            Acreditado = false,
+                            CapacitacionId = 3,
+                            Importe = 10000m,
                             IsDeleted = false,
                             Pagado = false,
-                            TipoInscripcionId = 1,
+                            TipoInscripcionId = 2,
                             UsuarioId = 5
                         });
                 });
@@ -348,25 +414,69 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3,
-                            Apellido = "Rodríguez",
-                            DeleteDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Dni = "37222333",
-                            Email = "carlos.rodriguez@example.com",
+                            Id = 1,
+                            Apellido = "Ramírez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "43111222",
+                            Email = "tadeo@isp20.edu.ar",
                             IsDeleted = false,
-                            Nombre = "Carlos",
-                            TipoUsuario = 1
+                            Nombre = "Tadeo",
+                            TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Apellido = "Gómez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "40222333",
+                            Email = "lucia.gomez@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Lucía",
+                            TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Apellido = "Pérez",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "39555111",
+                            Email = "martin.perez@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Martín",
+                            TipoUsuario = 0
                         },
                         new
                         {
                             Id = 4,
-                            Apellido = "Fernández",
-                            DeleteDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Dni = "42111111",
-                            Email = "lucia.fernandez@example.com",
+                            Apellido = "Sosa",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "38888999",
+                            Email = "carla.sosa@isp20.edu.ar",
                             IsDeleted = false,
-                            Nombre = "Lucía",
+                            Nombre = "Carla",
                             TipoUsuario = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Apellido = "López",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "37777666",
+                            Email = "diego.lopez@isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Diego",
+                            TipoUsuario = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Apellido = "Admin",
+                            DeleteDate = new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Dni = "00000000",
+                            Email = "soporte@agora.isp20.edu.ar",
+                            IsDeleted = false,
+                            Nombre = "Soporte",
+                            TipoUsuario = 2
                         });
                 });
 

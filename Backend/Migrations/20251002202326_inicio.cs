@@ -62,11 +62,13 @@ namespace Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Apellido = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Nombre = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
+                    Dni = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
+                    Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TipoUsuario = table.Column<int>(type: "int", nullable: false),
                     DeleteDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -113,14 +115,7 @@ namespace Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Apellido = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nombre = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Dni = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
                     TipoInscripcionId = table.Column<int>(type: "int", nullable: false),
                     CapacitacionId = table.Column<int>(type: "int", nullable: false),
                     Acreditado = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -149,6 +144,12 @@ namespace Backend.Migrations
                         column: x => x.UsuarioCobroId,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Inscripciones_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -157,8 +158,10 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Cupo", "Detalle", "FechaHora", "InscripcionAbierta", "IsDeleted", "Nombre", "Ponente" },
                 values: new object[,]
                 {
-                    { 1, 30, "Aprende los conceptos básicos de programación.", new DateTime(2025, 8, 29, 18, 34, 10, 925, DateTimeKind.Local).AddTicks(4901), true, false, "Introducción a la Programación", "Carlos Gómez" },
-                    { 2, 25, "Crea aplicaciones web modernas con ASP.NET Core.", new DateTime(2025, 9, 8, 18, 34, 10, 925, DateTimeKind.Local).AddTicks(4960), true, false, "Desarrollo Web con ASP.NET Core", "Ana Martínez" }
+                    { 1, 30, "Aprende los conceptos básicos de programación.", new DateTime(2025, 10, 12, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6797), true, false, "Introducción a la Programación", "Carlos Gómez" },
+                    { 2, 25, "Crea webapps modernas con ASP.NET Core.", new DateTime(2025, 10, 22, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6825), true, false, "Desarrollo Web con ASP.NET Core", "Ana Martínez" },
+                    { 3, 20, "Aprende a manejar bases de datos con SQL.", new DateTime(2025, 10, 17, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6828), true, false, "Curso SQL", "Luis Pérez" },
+                    { 4, 30, "Domina JavaScript para desarrollo web.", new DateTime(2025, 10, 27, 17, 23, 24, 281, DateTimeKind.Local).AddTicks(6831), true, false, "Taller de JavaScript", "Marta López" }
                 });
 
             migrationBuilder.InsertData(
@@ -174,21 +177,32 @@ namespace Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuarios",
-                columns: new[] { "Id", "DeleteDate", "Email", "IsDeleted", "Nombre", "Password", "TipoUsuario" },
+                columns: new[] { "Id", "Apellido", "DeleteDate", "Dni", "Email", "IsDeleted", "Nombre", "TipoUsuario" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", false, "Administrador", "admin123", 2 },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", false, "Usuario", "user123", 0 }
+                    { 1, "Ramírez", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "43111222", "tadeo@isp20.edu.ar", false, "Tadeo", 0 },
+                    { 2, "Gómez", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "40222333", "lucia.gomez@isp20.edu.ar", false, "Lucía", 0 },
+                    { 3, "Pérez", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "39555111", "martin.perez@isp20.edu.ar", false, "Martín", 0 },
+                    { 4, "Sosa", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "38888999", "carla.sosa@isp20.edu.ar", false, "Carla", 0 },
+                    { 5, "López", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "37777666", "diego.lopez@isp20.edu.ar", false, "Diego", 1 },
+                    { 6, "Admin", new DateTime(1900, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "00000000", "soporte@agora.isp20.edu.ar", false, "Soporte", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Inscripciones",
-                columns: new[] { "Id", "Acreditado", "Apellido", "CapacitacionId", "Dni", "Email", "Importe", "IsDeleted", "Nombre", "Pagado", "TipoInscripcionId", "UsuarioCobroId" },
+                columns: new[] { "Id", "Acreditado", "CapacitacionId", "Importe", "IsDeleted", "Pagado", "TipoInscripcionId", "UsuarioCobroId", "UsuarioId" },
                 values: new object[,]
                 {
-                    { 1, false, "Pérez", 1, "12345678", "perezjuan@gmail.com", 10000m, false, "Juan", false, 1, null },
-                    { 2, false, "Gómez", 2, "87654321", "gomezana@gmail.com", 8000m, false, "Ana", false, 2, null },
-                    { 3, false, "Lopez", 1, "12345678", "lopezmaria@gmail.com", 5000m, false, "Maria", false, 3, null }
+                    { 1, true, 1, 0m, false, false, 1, null, 1 },
+                    { 2, true, 1, 12000m, false, false, 1, null, 2 },
+                    { 3, true, 1, 0m, false, false, 3, null, 3 },
+                    { 4, true, 2, 8000m, false, false, 2, null, 5 },
+                    { 5, true, 2, 12000m, false, false, 1, null, 4 },
+                    { 6, false, 3, 15000m, false, false, 1, null, 1 },
+                    { 7, false, 3, 0m, false, false, 3, null, 2 },
+                    { 8, false, 3, 15000m, false, false, 1, null, 3 },
+                    { 9, false, 3, 15000m, false, false, 1, null, 4 },
+                    { 10, false, 3, 10000m, false, false, 2, null, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -216,6 +230,11 @@ namespace Backend.Migrations
                 name: "IX_Inscripciones_UsuarioCobroId",
                 table: "Inscripciones",
                 column: "UsuarioCobroId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inscripciones_UsuarioId",
+                table: "Inscripciones",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TiposInscripcionesCapacitaciones_CapacitacionId",
