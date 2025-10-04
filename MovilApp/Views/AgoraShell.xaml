@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:MovilApp"
     xmlns:login="clr-namespace:MovilApp.Views.Login"
     xmlns:contentviews="clr-namespace:MovilApp.ContentViews"
-    xmlns:views="clr-namespace:MovilApp.Views.Capacitaciones"
+    xmlns:views="clr-namespace:MovilApp.Views"
     xmlns:viewmodels="clr-namespace:MovilApp.ViewModels"
     FlyoutBehavior="Disabled"
     Title="AgoraApp">
@@ -49,7 +49,7 @@
     <FlyoutItem Title="📖 Buscar Capacitacioness" Icon="search.png">
         <ShellContent
             Title="Buscar Capacitaciones"
-            ContentTemplate="{DataTemplate pages:Capacitac}"
+            ContentTemplate="{DataTemplate views:CapacitacionesView}"
             Route="BuscarCapacitaciones" />
     </FlyoutItem>
     <MenuItem Text="Cerrar sesión"

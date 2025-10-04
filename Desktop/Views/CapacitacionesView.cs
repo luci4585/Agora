@@ -127,7 +127,7 @@ namespace Desktop.Views
 
         private void TxtBuscar_TextChanged(object sender, EventArgs e)
         {
-            BtnBuscar.PerformClick();
+            //BtnBuscar.PerformClick();
         }
 
         private void TimerStatusBar_Tick(object sender, EventArgs e)
