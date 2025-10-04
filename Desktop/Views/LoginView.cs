@@ -21,6 +21,7 @@ namespace Desktop.Views
         {
             InitializeComponent();
             SettingFirebase();
+            TxtPassword.PasswordChar = '*';
         }
 
         private void SettingFirebase()

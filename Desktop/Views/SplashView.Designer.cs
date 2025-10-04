@@ -38,18 +38,20 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.LogoAgora;
-            pictureBox1.Location = new Point(178, -4);
+            pictureBox1.Location = new Point(156, -3);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(420, 391);
+            pictureBox1.Size = new Size(368, 293);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // ProgressBar
             // 
-            ProgressBar.Location = new Point(1, 353);
+            ProgressBar.Location = new Point(1, 265);
+            ProgressBar.Margin = new Padding(3, 2, 3, 2);
             ProgressBar.Name = "ProgressBar";
-            ProgressBar.Size = new Size(790, 34);
+            ProgressBar.Size = new Size(691, 26);
             ProgressBar.TabIndex = 1;
             // 
             // Timer
@@ -59,13 +61,14 @@
             // 
             // SplashView
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(790, 385);
+            ClientSize = new Size(691, 289);
             Controls.Add(ProgressBar);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "SplashView";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SplashView";
