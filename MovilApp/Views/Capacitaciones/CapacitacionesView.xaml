@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:MovilApp.ViewModels.Capacitaciones"
              x:Class="MovilApp.Views.CapacitacionesView">
 
-<ContentPage.BindingContext>
+    <ContentPage.BindingContext>
     <vm:CapacitacionesViewModel />
     </ContentPage.BindingContext>
 
