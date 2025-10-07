@@ -27,15 +27,15 @@ namespace MovilApp.ViewModels
             if (Application.Current?.MainPage is AgoraShell shell)
             {
                 if (isLoggedIn)
-                    Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+                    shell.FlyoutBehavior = FlyoutBehavior.Flyout;
                 else
-                    Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+                    shell.FlyoutBehavior = FlyoutBehavior.Disabled;
 
                 UserIsLogged = isLoggedIn;
                 if (isLoggedIn)
-                    Shell.Current.GoToAsync("//MainPage");  // Cambio a MainPage (pantalla de inicio)
+                    shell.GoToAsync("//MainPage");  // Cambio a MainPage (pantalla de inicio)
                 else
-                    Shell.Current.GoToAsync("//Login");
+                    shell.GoToAsync("//Login");
             }
 
         }
