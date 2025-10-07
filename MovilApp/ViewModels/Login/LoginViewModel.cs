@@ -60,9 +60,12 @@ namespace MovilApp.ViewModels.Login
             {
                 (_userInfo, _firebaseCredential) = _userRepository.ReadUser();
 
-                var agoraShell = (AgoraShell)App.Current.MainPage;
-                agoraShell.EnableAppAfterLogin();
+                if (Application.Current?.MainPage is AgoraShell agoraShell)
+                {
+                    agoraShell.SetLoginState(true);
+                }
             }
+
         }
 
         private bool PermitirIniciarSesion()
@@ -91,8 +94,10 @@ namespace MovilApp.ViewModels.Login
                     _userRepository.DeleteUser();
                 }
 
-                var institutoShell = (AgoraShell)App.Current.MainPage;
-                institutoShell.EnableAppAfterLogin();
+                if (Application.Current?.MainPage is AgoraShell agoraShell)
+                {
+                    agoraShell.SetLoginState(true);
+                }
 
             }
             catch (FirebaseAuthException error)
