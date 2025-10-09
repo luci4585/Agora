@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using MovilApp.Views;
 using System.Net.Http.Headers;
 
 namespace MovilApp.ViewModels.Login
@@ -13,24 +14,30 @@ namespace MovilApp.ViewModels.Login
         private readonly string RequestUri;
 
         public IRelayCommand RegistrarseCommand { get; }
+        public IRelayCommand VolverCommand { get; }
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
         private string nombre;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
         private string email;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
         private string password;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
         private string verifyPassword;
 
         public SignInViewModel()
         {
             FirebaseApiKey = Service.Properties.Resources.ApiKeyFirebase;
             RequestUri = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + FirebaseApiKey;
-            RegistrarseCommand = new RelayCommand(Registrarse);
+            RegistrarseCommand = new RelayCommand(Registrarse, PermitirRegistrarse);
+            VolverCommand = new AsyncRelayCommand(Volver);
             _clientAuth = new FirebaseAuthClient(new FirebaseAuthConfig()
             {
                 ApiKey = FirebaseApiKey,
@@ -40,6 +47,19 @@ namespace MovilApp.ViewModels.Login
                         new EmailProvider()
                 }
             });
+        }
+
+        private bool PermitirRegistrarse()
+        {
+            return !string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(verifyPassword);
+        }
+
+        private async Task Volver()
+        {
+            if (Application.Current?.MainPage is AgoraShell shell)
+            {
+               await shell.GoToAsync($"//Login");
+            }
         }
 
         private async void Registrarse()

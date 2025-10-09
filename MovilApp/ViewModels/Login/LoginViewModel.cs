@@ -51,7 +51,10 @@ namespace MovilApp.ViewModels.Login
 
         private async void Registrarse()
         {
-            await Shell.Current.GoToAsync("Registrarse");
+            if (Application.Current?.MainPage is AgoraShell shell)
+            {
+                await shell.GoToAsync($"//Registrarse");
+            }
         }
 
         private async void ChequearSiHayUsuarioAlmacenado()

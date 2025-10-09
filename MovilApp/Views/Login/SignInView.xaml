@@ -2,18 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:login="clr-namespace:MovilApp.ViewModels.Login"
-             x:Class="MovilApp.Views.Login.SignInView"
-             Title="CrearCuenta">
+             x:Class="MovilApp.Views.Login.SignInView">
     <ContentPage.BindingContext>
         <login:SignInViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout Margin="20">
-            <Label 
-             FontSize="Title"
-             Text="Creando nueva cuenta en InstitutoApp"
-             VerticalOptions="Center" 
-             HorizontalOptions="Center" />
+            <!-- Botón volver -->
+            <Button Text="←"
+                 Command="{Binding VolverCommand}"
+                 BackgroundColor="Transparent"
+                 TextColor="White"
+                 FontSize="24"
+                 HorizontalOptions="Start"
+                 WidthRequest="50"
+                 HeightRequest="50"
+                 Margin="0,0,0,20"
+                 Padding="0,0,0,10"/>
             <Grid RowDefinitions="2*,2*,2*,2*,*" ColumnDefinitions="*,*">
                 <Label Grid.Row="0" Grid.Column="0" 
                     HorizontalTextAlignment="End"
@@ -43,15 +48,14 @@
                     VerticalTextAlignment="Center"
                     Margin="10,20">Verificar Contraseña:</Label>
                 <Entry Grid.Row="3" Grid.Column="1" 
-                    Text="{Binding VerifyPassword}"
+                    Text="{Binding VerifyPassword}" 
                     Margin="10,20,100,20" IsPassword="True"></Entry>
 
                 <Button Text="Registrarse"
                      Command="{Binding RegistrarseCommand}"
                      Grid.Row="4" Grid.Column="0"
                      Grid.ColumnSpan="2"
-                     Margin="100,10"
-                     ></Button>
+                     Margin="20,15,20,0"></Button>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
