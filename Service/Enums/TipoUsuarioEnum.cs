@@ -10,7 +10,7 @@ namespace Service.Enums
 {
     public enum TipoUsuarioEnum
     {
-        Estudiante,
+        Asistente,
         Docente,
         Administrador
     }

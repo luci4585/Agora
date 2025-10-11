@@ -34,10 +34,10 @@ namespace Backend.DataContext
             // ---------- USUARIOS ----------
             var usuarios = new[]
             {
-            new Usuario { Id = 1, Apellido = "Ramírez", Nombre = "Tadeo", Dni = "43111222", Email = "tadeo@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Estudiante, DeleteDate = fechaNula, IsDeleted = false },
-            new Usuario { Id = 2, Apellido = "Gómez",   Nombre = "Lucía", Dni = "40222333", Email = "lucia.gomez@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Estudiante, DeleteDate = fechaNula, IsDeleted = false },
-            new Usuario { Id = 3, Apellido = "Pérez",   Nombre = "Martín",Dni = "39555111", Email = "martin.perez@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Estudiante, DeleteDate = fechaNula, IsDeleted = false },
-            new Usuario { Id = 4, Apellido = "Sosa",    Nombre = "Carla", Dni = "38888999", Email = "carla.sosa@isp20.edu.ar",  TipoUsuario = TipoUsuarioEnum.Estudiante, DeleteDate = fechaNula, IsDeleted = false },
+            new Usuario { Id = 1, Apellido = "Ramírez", Nombre = "Tadeo", Dni = "43111222", Email = "tadeo@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Asistente, DeleteDate = fechaNula, IsDeleted = false },
+            new Usuario { Id = 2, Apellido = "Gómez",   Nombre = "Lucía", Dni = "40222333", Email = "lucia.gomez@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Asistente, DeleteDate = fechaNula, IsDeleted = false },
+            new Usuario { Id = 3, Apellido = "Pérez",   Nombre = "Martín",Dni = "39555111", Email = "martin.perez@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Asistente, DeleteDate = fechaNula, IsDeleted = false },
+            new Usuario { Id = 4, Apellido = "Sosa",    Nombre = "Carla", Dni = "38888999", Email = "carla.sosa@isp20.edu.ar",  TipoUsuario = TipoUsuarioEnum.Asistente, DeleteDate = fechaNula, IsDeleted = false },
             new Usuario { Id = 5, Apellido = "López",   Nombre = "Diego", Dni = "37777666", Email = "diego.lopez@isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Docente,    DeleteDate = fechaNula, IsDeleted = false },
             // Cobrador/Admin
             new Usuario { Id = 6, Apellido = "Admin",   Nombre = "Soporte", Dni = "00000000", Email = "soporte@agora.isp20.edu.ar", TipoUsuario = TipoUsuarioEnum.Administrador, DeleteDate = fechaNula, IsDeleted = false }

@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using MovilApp.Views;
+using Service.Enums;
+using Service.Models;
+using Service.Services;
 using System.Net.Http.Headers;
 
 namespace MovilApp.ViewModels.Login
@@ -10,6 +13,7 @@ namespace MovilApp.ViewModels.Login
     public partial class SignInViewModel : ObservableObject
     {
         private readonly FirebaseAuthClient _clientAuth;
+        GenericService<Usuario> _usuarioService = new();
         private readonly string FirebaseApiKey;
         private readonly string RequestUri;
 
@@ -19,6 +23,14 @@ namespace MovilApp.ViewModels.Login
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
         private string nombre;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
+        private string lastnombre;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
+        private string dni;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RegistrarseCommand))]
@@ -73,7 +85,18 @@ namespace MovilApp.ViewModels.Login
             {
                 try
                 {
-                    var user = await _clientAuth.CreateUserWithEmailAndPasswordAsync(email, password, nombre);
+                    var fullname = nombre + " " + lastnombre;
+                    var user = await _clientAuth.CreateUserWithEmailAndPasswordAsync(email, password, fullname);
+                    var nuevoUsuario = new Usuario
+                    {
+                        Nombre = nombre,
+                        Apellido = lastnombre,
+                        Dni = dni,
+                        Email = email,
+                        TipoUsuario = TipoUsuarioEnum.Asistente,
+                        IsDeleted = false,
+                        DeleteDate = DateTime.Parse("1900-01-01")
+                    };
                     await SendVerificationEmailAsync(user.User.GetIdTokenAsync().Result);
                     await Application.Current.MainPage.DisplayAlert("Registrarse", "Cuenta creada!", "Ok");
                     if (Application.Current?.MainPage is AgoraShell shell)

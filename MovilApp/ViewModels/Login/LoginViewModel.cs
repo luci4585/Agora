@@ -96,11 +96,12 @@ namespace MovilApp.ViewModels.Login
             {
                 EstaDescargando = true;
                 var userCredential = await _clientAuth.SignInWithEmailAndPasswordAsync(email, password);
-                //if (userCredential.User.Info.IsEmailVerified == false)
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Inicio de sesión", "Debe verificar su correo electrónico", "Ok");
-                //    return;
-                //}
+                if (userCredential.User.Info.IsEmailVerified == false)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Inicio de sesión", "Debe verificar su correo electrónico", "Ok");
+                    EstaDescargando = false;
+                    return;
+                }
 
                 if (recordarContraseña)
                 {
