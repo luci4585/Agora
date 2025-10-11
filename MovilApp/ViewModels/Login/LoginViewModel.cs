@@ -27,6 +27,9 @@ namespace MovilApp.ViewModels.Login
         [ObservableProperty]
         private bool recordarContraseña;
 
+        [ObservableProperty]
+        private bool estaDescargando;
+
 
         public IRelayCommand IniciarSesionCommand { get; }
         public IRelayCommand RegistrarseCommand { get; }
@@ -59,16 +62,27 @@ namespace MovilApp.ViewModels.Login
 
         private async void ChequearSiHayUsuarioAlmacenado()
         {
-            if (_userRepository.UserExists())
-            {
-                (_userInfo, _firebaseCredential) = _userRepository.ReadUser();
+            //_userRepository.DeleteUser();
+              if (DeviceInfo.Platform == DevicePlatform.Android || 
+                 DeviceInfo.Platform == DevicePlatform.iOS)
+              {
+                  try
+                  {
+                      if (_userRepository.UserExists())
+                      {
+                          (_userInfo, _firebaseCredential) = _userRepository.ReadUser();
 
-                if (Application.Current?.MainPage is AgoraShell agoraShell)
-                {
-                    agoraShell.SetLoginState(true);
-                }
-            }
-
+                          if (Application.Current?.MainPage is AgoraShell agoraShell)
+                          {
+                              agoraShell.SetLoginState(true);
+                          }
+                      }
+                  }
+                  catch (Exception ex)
+                  {
+                      await Application.Current.MainPage.DisplayAlert("Error", "Ocurrió un problema al leer el usuario almacenado: " + ex.Message, "Ok");
+                  }
+              }
         }
 
         private bool PermitirIniciarSesion()
@@ -80,7 +94,7 @@ namespace MovilApp.ViewModels.Login
         {
             try
             {
-
+                EstaDescargando = true;
                 var userCredential = await _clientAuth.SignInWithEmailAndPasswordAsync(email, password);
                 //if (userCredential.User.Info.IsEmailVerified == false)
                 //{
@@ -101,7 +115,7 @@ namespace MovilApp.ViewModels.Login
                 {
                     agoraShell.SetLoginState(true);
                 }
-
+                EstaDescargando = false;
             }
             catch (FirebaseAuthException error)
             {

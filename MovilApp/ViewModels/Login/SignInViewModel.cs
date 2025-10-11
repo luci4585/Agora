@@ -76,6 +76,10 @@ namespace MovilApp.ViewModels.Login
                     var user = await _clientAuth.CreateUserWithEmailAndPasswordAsync(email, password, nombre);
                     await SendVerificationEmailAsync(user.User.GetIdTokenAsync().Result);
                     await Application.Current.MainPage.DisplayAlert("Registrarse", "Cuenta creada!", "Ok");
+                    if (Application.Current?.MainPage is AgoraShell shell)
+                    {
+                        await shell.GoToAsync($"//Login");
+                    }
                 }
                 catch (FirebaseAuthException error) // Use alias here 
                 {

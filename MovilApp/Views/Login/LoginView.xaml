@@ -48,15 +48,8 @@
                         Grid.Row="4" Grid.Column="0"
                         Command="{Binding RegistrarseCommand}"
                         Grid.ColumnSpan="2"></Button>
-                <ImageButton 
-                             Grid.Row="5" Grid.Column="0" 
-                             Grid.ColumnSpan="2"
-                             WidthRequest="400"
-                             Margin="0,10,0,10"
-                             x:Name="btnLoginGoogle"
-                            
-                             ></ImageButton>
             </Grid>
+            <ActivityIndicator IsRunning="{Binding EstaDescargando}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
