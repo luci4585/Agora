@@ -42,19 +42,10 @@
             BtnAgregar = new FontAwesome.Sharp.IconButton();
             DataGrid = new DataGridView();
             TabPageAgregarEditar = new TabPage();
-            checkInscripcionAbierta = new CheckBox();
             label3 = new Label();
-            label7 = new Label();
             BtnGuardar = new FontAwesome.Sharp.IconButton();
-            DateTimeFechaHora = new DateTimePicker();
             BtnCancelar = new FontAwesome.Sharp.IconButton();
-            TxtPonente = new TextBox();
             TxtNombre = new TextBox();
-            label6 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            TxtDetalle = new TextBox();
-            NumericCupo = new NumericUpDown();
             panel1 = new Panel();
             label1 = new Label();
             statusStrip1 = new StatusStrip();
@@ -64,7 +55,6 @@
             TabPageLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             TabPageAgregarEditar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericCupo).BeginInit();
             panel1.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -240,19 +230,10 @@
             // 
             // TabPageAgregarEditar
             // 
-            TabPageAgregarEditar.Controls.Add(checkInscripcionAbierta);
             TabPageAgregarEditar.Controls.Add(label3);
-            TabPageAgregarEditar.Controls.Add(label7);
             TabPageAgregarEditar.Controls.Add(BtnGuardar);
-            TabPageAgregarEditar.Controls.Add(DateTimeFechaHora);
             TabPageAgregarEditar.Controls.Add(BtnCancelar);
-            TabPageAgregarEditar.Controls.Add(TxtPonente);
             TabPageAgregarEditar.Controls.Add(TxtNombre);
-            TabPageAgregarEditar.Controls.Add(label6);
-            TabPageAgregarEditar.Controls.Add(label4);
-            TabPageAgregarEditar.Controls.Add(label5);
-            TabPageAgregarEditar.Controls.Add(TxtDetalle);
-            TabPageAgregarEditar.Controls.Add(NumericCupo);
             TabPageAgregarEditar.Location = new Point(4, 29);
             TabPageAgregarEditar.Name = "TabPageAgregarEditar";
             TabPageAgregarEditar.Padding = new Padding(3);
@@ -261,35 +242,15 @@
             TabPageAgregarEditar.Text = "Agregar/Editar";
             TabPageAgregarEditar.UseVisualStyleBackColor = true;
             // 
-            // checkInscripcionAbierta
-            // 
-            checkInscripcionAbierta.AutoSize = true;
-            checkInscripcionAbierta.Location = new Point(249, 294);
-            checkInscripcionAbierta.Name = "checkInscripcionAbierta";
-            checkInscripcionAbierta.Size = new Size(155, 24);
-            checkInscripcionAbierta.TabIndex = 5;
-            checkInscripcionAbierta.Text = "Inscripcion Abierta";
-            checkInscripcionAbierta.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(172, 62);
+            label3.Location = new Point(174, 149);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
             label3.Size = new Size(67, 20);
             label3.TabIndex = 30;
             label3.Text = "Nombre:";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(141, 206);
-            label7.Margin = new Padding(2, 0, 2, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(98, 20);
-            label7.TabIndex = 36;
-            label7.Text = "Fecha y Hora:";
             // 
             // BtnGuardar
             // 
@@ -308,16 +269,6 @@
             BtnGuardar.UseVisualStyleBackColor = true;
             BtnGuardar.Click += BtnGuardar_Click_1;
             // 
-            // DateTimeFechaHora
-            // 
-            DateTimeFechaHora.CustomFormat = "dd/MM/yyyy  HH:mm";
-            DateTimeFechaHora.Format = DateTimePickerFormat.Custom;
-            DateTimeFechaHora.Location = new Point(249, 200);
-            DateTimeFechaHora.Name = "DateTimeFechaHora";
-            DateTimeFechaHora.ShowUpDown = true;
-            DateTimeFechaHora.Size = new Size(242, 27);
-            DateTimeFechaHora.TabIndex = 3;
-            // 
             // BtnCancelar
             // 
             BtnCancelar.Anchor = AnchorStyles.Bottom;
@@ -335,70 +286,13 @@
             BtnCancelar.UseVisualStyleBackColor = true;
             BtnCancelar.Click += BtnCancelar_Click_1;
             // 
-            // TxtPonente
-            // 
-            TxtPonente.ForeColor = Color.Black;
-            TxtPonente.Location = new Point(249, 153);
-            TxtPonente.Margin = new Padding(2);
-            TxtPonente.Name = "TxtPonente";
-            TxtPonente.Size = new Size(718, 27);
-            TxtPonente.TabIndex = 2;
-            // 
             // TxtNombre
             // 
-            TxtNombre.Location = new Point(249, 59);
+            TxtNombre.Location = new Point(262, 149);
             TxtNombre.Margin = new Padding(2);
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(718, 27);
             TxtNombre.TabIndex = 0;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(180, 158);
-            label6.Margin = new Padding(2, 0, 2, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(59, 20);
-            label6.TabIndex = 35;
-            label6.Text = "Orador:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(179, 110);
-            label4.Margin = new Padding(2, 0, 2, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(60, 20);
-            label4.TabIndex = 33;
-            label4.Text = "Detalle:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(192, 254);
-            label5.Margin = new Padding(2, 0, 2, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(47, 20);
-            label5.TabIndex = 34;
-            label5.Text = "Cupo:";
-            // 
-            // TxtDetalle
-            // 
-            TxtDetalle.Location = new Point(249, 106);
-            TxtDetalle.Margin = new Padding(2);
-            TxtDetalle.Name = "TxtDetalle";
-            TxtDetalle.Size = new Size(718, 27);
-            TxtDetalle.TabIndex = 1;
-            // 
-            // NumericCupo
-            // 
-            NumericCupo.Location = new Point(249, 247);
-            NumericCupo.Margin = new Padding(2);
-            NumericCupo.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
-            NumericCupo.Name = "NumericCupo";
-            NumericCupo.Size = new Size(144, 27);
-            NumericCupo.TabIndex = 4;
-            NumericCupo.TextAlign = HorizontalAlignment.Right;
             // 
             // panel1
             // 
@@ -414,9 +308,9 @@
             label1.Font = new Font("Impact", 20F);
             label1.Location = new Point(3, 10);
             label1.Name = "label1";
-            label1.Size = new Size(236, 42);
+            label1.Size = new Size(334, 42);
             label1.TabIndex = 0;
-            label1.Text = "Capacitaciones";
+            label1.Text = "Tipos de inscripciones";
             // 
             // statusStrip1
             // 
@@ -438,7 +332,7 @@
             TimerStatusBar.Interval = 5000;
             TimerStatusBar.Tick += TimerStatusBar_Tick;
             // 
-            // CapacitacionesView
+            // TipoInscripcionView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -446,7 +340,7 @@
             Controls.Add(statusStrip1);
             Controls.Add(panel1);
             Controls.Add(TabControl);
-            Name = "CapacitacionesView";
+            Name = "TipoInscripcionView";
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
             TabControl.ResumeLayout(false);
@@ -455,7 +349,6 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             TabPageAgregarEditar.ResumeLayout(false);
             TabPageAgregarEditar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericCupo).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             statusStrip1.ResumeLayout(false);
@@ -486,18 +379,9 @@
         private System.Windows.Forms.Timer TimerStatusBar;
         private CheckBox CheckVerEliminados;
         private FontAwesome.Sharp.IconButton BtnRestaurar;
-        private CheckBox checkInscripcionAbierta;
         private Label label3;
-        private Label label7;
         private FontAwesome.Sharp.IconButton BtnGuardar;
-        private DateTimePicker DateTimeFechaHora;
         private FontAwesome.Sharp.IconButton BtnCancelar;
-        private TextBox TxtPonente;
         private TextBox TxtNombre;
-        private Label label6;
-        private Label label4;
-        private Label label5;
-        private TextBox TxtDetalle;
-        private NumericUpDown NumericCupo;
     }
 }

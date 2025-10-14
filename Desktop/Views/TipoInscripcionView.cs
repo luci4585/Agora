@@ -142,19 +142,19 @@ namespace Desktop.Views
             //chequeamos que haya películas seleccionadas
             if (DataGrid.Rows.Count > 0 && DataGrid.SelectedRows.Count > 0)
             {
-                Capacitacion entitySelected = (Capacitacion)DataGrid.SelectedRows[0].DataBoundItem;
+                TipoInscripcion entitySelected = (TipoInscripcion)DataGrid.SelectedRows[0].DataBoundItem;
                 var respuesta = MessageBox.Show($"¿Está seguro de recuperar el tipo de inscripción {entitySelected.Nombre} seleccionada?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
                     if (await _tipoInscripcionService.RestoreAsync(entitySelected.Id))
                     {
-                        LabelStatusMessage.Text = $"Capacitación {entitySelected.Nombre} restaurada correctamente";
+                        LabelStatusMessage.Text = $"Tipo de inscripción {entitySelected.Nombre} restaurada correctamente";
                         TimerStatusBar.Start();
                         await GetAllData();
                     }
                     else
                     {
-                        MessageBox.Show("Error al restaurar la capacitacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al restaurar el tipo de inscripción", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
