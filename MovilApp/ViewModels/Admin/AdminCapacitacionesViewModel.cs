@@ -19,8 +19,8 @@ namespace MovilApp.ViewModels.Admin
         private ObservableCollection<Capacitacion> capacitaciones;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(EditCapacitacion))]
-        [NotifyCanExecuteChangedFor(nameof(DeleteCapacitacion))]
+        [NotifyCanExecuteChangedFor(nameof(EditCommand))]
+        [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
         private Capacitacion capacitacionCurrent;
 
         [ObservableProperty]
