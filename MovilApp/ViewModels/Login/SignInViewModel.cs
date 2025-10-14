@@ -97,6 +97,7 @@ namespace MovilApp.ViewModels.Login
                         IsDeleted = false,
                         DeleteDate = DateTime.Parse("1900-01-01")
                     };
+                    var usuarioCreado = await _usuarioService.AddAsync(nuevoUsuario);
                     await SendVerificationEmailAsync(user.User.GetIdTokenAsync().Result);
                     await Application.Current.MainPage.DisplayAlert("Registrarse", "Cuenta creada!", "Ok");
                     if (Application.Current?.MainPage is AgoraShell shell)
