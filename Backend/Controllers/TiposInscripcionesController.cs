@@ -23,9 +23,9 @@ namespace Backend.Controllers
 
         // GET: api/TipoInscripciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TipoInscripcion>>> GetTipoInscripciones()
+        public async Task<ActionResult<IEnumerable<TipoInscripcion>>> GetTipoInscripciones([FromQuery] string? filter = "")
         {
-            return await _context.TipoInscripciones.ToListAsync();
+            return await _context.TipoInscripciones.Where(ti=>ti.Nombre.Contains(filter)).ToListAsync();
         }
 
         // GET: api/TipoInscripciones
