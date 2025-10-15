@@ -33,10 +33,12 @@
             MenuPrincipal = new FontAwesome.Sharp.IconMenuItem();
             SubMenuUsuarios = new FontAwesome.Sharp.IconMenuItem();
             SubMenuCapacitaciones = new FontAwesome.Sharp.IconMenuItem();
+            SubMenuTiposDeInscripciones = new FontAwesome.Sharp.IconMenuItem();
             MenuSalir = new FontAwesome.Sharp.IconMenuItem();
             SubMenuSalirDelSistema = new FontAwesome.Sharp.IconMenuItem();
             toolStrip1 = new ToolStrip();
-            SubMenuTiposDeInscripciones = new FontAwesome.Sharp.IconMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            SubMenuInscripciones = new FontAwesome.Sharp.IconMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -61,7 +63,7 @@
             // 
             // MenuPrincipal
             // 
-            MenuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { SubMenuUsuarios, SubMenuCapacitaciones, SubMenuTiposDeInscripciones });
+            MenuPrincipal.DropDownItems.AddRange(new ToolStripItem[] { SubMenuUsuarios, SubMenuCapacitaciones, SubMenuTiposDeInscripciones, toolStripSeparator1, SubMenuInscripciones });
             MenuPrincipal.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
             MenuPrincipal.IconColor = Color.Black;
             MenuPrincipal.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -88,6 +90,16 @@
             SubMenuCapacitaciones.Size = new Size(238, 26);
             SubMenuCapacitaciones.Text = "Capacitaciones";
             SubMenuCapacitaciones.Click += SubMenuCapacitaciones_Click;
+            // 
+            // SubMenuTiposDeInscripciones
+            // 
+            SubMenuTiposDeInscripciones.IconChar = FontAwesome.Sharp.IconChar.PeopleGroup;
+            SubMenuTiposDeInscripciones.IconColor = Color.Black;
+            SubMenuTiposDeInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuTiposDeInscripciones.Name = "SubMenuTiposDeInscripciones";
+            SubMenuTiposDeInscripciones.Size = new Size(238, 26);
+            SubMenuTiposDeInscripciones.Text = "Tipos de inscripciones";
+            SubMenuTiposDeInscripciones.Click += SubMenuTiposDeInscripciones_Click;
             // 
             // MenuSalir
             // 
@@ -118,15 +130,20 @@
             toolStrip1.TabIndex = 4;
             toolStrip1.Text = "toolStrip1";
             // 
-            // SubMenuTiposDeInscripciones
+            // toolStripSeparator1
             // 
-            SubMenuTiposDeInscripciones.IconChar = FontAwesome.Sharp.IconChar.PeopleGroup;
-            SubMenuTiposDeInscripciones.IconColor = Color.Black;
-            SubMenuTiposDeInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            SubMenuTiposDeInscripciones.Name = "SubMenuTiposDeInscripciones";
-            SubMenuTiposDeInscripciones.Size = new Size(238, 26);
-            SubMenuTiposDeInscripciones.Text = "Tipos de inscripciones";
-            SubMenuTiposDeInscripciones.Click += SubMenuTiposDeInscripciones_Click;
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(235, 6);
+            // 
+            // SubMenuInscripciones
+            // 
+            SubMenuInscripciones.IconChar = FontAwesome.Sharp.IconChar.Pencil;
+            SubMenuInscripciones.IconColor = Color.Black;
+            SubMenuInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            SubMenuInscripciones.Name = "SubMenuInscripciones";
+            SubMenuInscripciones.Size = new Size(238, 26);
+            SubMenuInscripciones.Text = "Inscripciones";
+            SubMenuInscripciones.Click += SubMenuInscripciones_Click;
             // 
             // MenuPrincipalView
             // 
@@ -156,5 +173,7 @@
         private FontAwesome.Sharp.IconMenuItem SubMenuUsuarios;
         private FontAwesome.Sharp.IconMenuItem SubMenuCapacitaciones;
         private FontAwesome.Sharp.IconMenuItem SubMenuTiposDeInscripciones;
+        private ToolStripSeparator toolStripSeparator1;
+        private FontAwesome.Sharp.IconMenuItem SubMenuInscripciones;
     }
 }
