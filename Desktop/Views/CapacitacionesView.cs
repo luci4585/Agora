@@ -1,4 +1,5 @@
-﻿using Service.Models;
+﻿using Desktop.ExtensionMethod;
+using Service.Models;
 using Service.Services;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Desktop.Views
     public partial class CapacitacionesView : Form
     {
         GenericService<Capacitacion> _capacitacionService = new GenericService<Capacitacion>();
+        GenericService<TipoInscripcion> _tipoInscripcionService = new();
         Capacitacion _currentCapacitacion;
         List<Capacitacion>? _capacitaciones;
 
@@ -44,7 +46,14 @@ namespace Desktop.Views
             DataGrid.DataSource = _capacitaciones;
             DataGrid.Columns["Id"].Visible = false;
             DataGrid.Columns["IsDeleted"].Visible = false;
+            await GetComboTiposDeInscripciones();
+        }
 
+        private async Task GetComboTiposDeInscripciones()
+        {
+            ComboTiposInscripciones.DataSource = await _tipoInscripcionService.GetAllAsync();
+            ComboTiposInscripciones.DisplayMember = "Nombre";
+            ComboTiposInscripciones.ValueMember = "Id";
         }
 
         private void GridPeliculas_SelectionChanged_1(object sender, EventArgs e)
@@ -96,6 +105,7 @@ namespace Desktop.Views
             checkInscripcionAbierta.Checked = false;
             NumericCupo.Value = 0;
             TxtDetalle.Clear();
+            GridTiposInscripciones.DataSource = null;
         }
 
 
@@ -216,6 +226,28 @@ namespace Desktop.Views
         private void BtnCancelar_Click_1(object sender, EventArgs e)
         {
             TabControl.SelectedTab = TabPageLista;
+        }
+
+        private void BtnAniadir_Click(object sender, EventArgs e)
+        {
+            var tipoInscripcionCapacitacion = new TipoInscripcionCapacitacion
+            {
+                TipoInscripcionId = (int)ComboTiposInscripciones.SelectedValue,
+                TipoInscripcion = (TipoInscripcion)ComboTiposInscripciones.SelectedItem,
+                CapacitacionId = _currentCapacitacion?.Id ?? 0,
+                Capacitacion = _currentCapacitacion,
+                Costo = NumericCosto.Value
+            };
+            _currentCapacitacion?.TiposDeInscripciones.Add(tipoInscripcionCapacitacion);
+            GridTiposInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
+            GridTiposInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
+        }
+
+        private void BtnQuitar_Click(object sender, EventArgs e)
+        {
+            var tipoInscripcionCapacitacionSeleccionada = (TipoInscripcionCapacitacion)GridTiposInscripciones.SelectedRows[0].DataBoundItem;
+            _currentCapacitacion?.TiposDeInscripciones.Remove(tipoInscripcionCapacitacionSeleccionada);
+            GridTiposInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
         }
     }
 } 
