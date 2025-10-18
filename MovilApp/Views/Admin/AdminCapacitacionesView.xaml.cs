@@ -1,9 +1,10 @@
-namespace MovilApp.Views.Admin;
-
-public partial class AdminCapacitacionesView : ContentPage
+namespace MovilApp.Views.Admin
 {
-	public AdminCapacitacionesView()
+    public partial class AdminCapacitacionesView : ContentPage
 	{
-		InitializeComponent();
+		public AdminCapacitacionesView()
+		{
+			InitializeComponent();
+		}
 	}
 }
