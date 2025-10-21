@@ -23,5 +23,23 @@ namespace TestAgora
                 Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
             }
         }
+
+        [Fact]
+        public async void TestGetCapacitacionesFuturasAsync()
+        {
+            // Arrange
+            var service = new CapacitacionService();
+            //Act
+            var result = await service.GetCapacitacionesFuturasAsync();
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Inscripcion>>(result);
+            Assert.True(result.Count > 0);
+            foreach (var item in result)
+            {
+                //imprimimos las capacitaciones
+                Console.WriteLine($"Id: {item.Id}, Nombre: {item.Nombre}");
+            }
+        }
     }
 }

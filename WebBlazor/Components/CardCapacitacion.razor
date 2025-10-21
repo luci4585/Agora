@@ -1,0 +1,19 @@
+﻿<h3>CardCapacitacion</h3>
+<div class="card text-center">
+    <div class="card-header">
+        Orador: @Capacitacion?.Ponente
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Capacitacion?.Nombre</h5>
+        <p class="card-text">@Capacitacion?.Detalle</p>
+        <a href="#" class="btn btn-primary">Inscribirme</a>
+    </div>
+    <div class="card-footer text-body-secondary">
+        Fecha: @Capacitacion?.FechaHora.ToString("dd/MM/yyyy") Hora: @Capacitacion?.FechaHora.ToString("HH:mm")
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Capacitacion? Capacitacion { get; set; }
+}
