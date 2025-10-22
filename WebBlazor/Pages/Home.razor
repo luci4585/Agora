@@ -3,7 +3,7 @@
 
 <PageTitle>Inicio</PageTitle>
 
-<h1>Ágora — Plataforma de Gestión de Capacitaciones</h1>
+<PageHeader Title="Ágora" Description="Plataforma de Gestión de Capacitaciones"/>
 
 <h4>Ágora es un proyecto educativo desarrollado junto a estudiantes de 2.º año de Programación. Su objetivo es brindar 
     una plataforma integral para gestionar capacitaciones de una institución educativa: desde la publicación y la inscripción 
@@ -20,11 +20,14 @@
     else
     {
         <h3>Capacitaciones Abiertas</h3>
-   
+        <div class="row row-cols-1 row-cols-md-2 g-4">
             @foreach (var capacitacion in capacitacionesAbiertas)
             {
-                <CardCapacitacion Capacitacion="capacitacion"/>
+            <div class="col">
+                <CardCapacitacion Capacitacion="capacitacion" />
+            </div>
             }
+        </div>
     }
 
 
