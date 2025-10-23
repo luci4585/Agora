@@ -27,8 +27,10 @@ else
                         <InputText class="form-control mb-2" type="text" @bind-Value="capacitacion.Ponente" />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Fecha y hora:</label>
-                        <InputDate class="form-control mb-2" @bind-Value="capacitacion.FechaHora" />
+                        <label>Fecha y hora:</label>
+                        <input class="form-control mb2"
+                        type="datetime-local"
+                        @bind="capacitacion.FechaHora" />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Cupo:</label>

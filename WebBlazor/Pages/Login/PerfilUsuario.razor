@@ -1,0 +1,34 @@
+﻿@page "/perfilusuario"
+@inject NavigationManager NavigationManager
+@inject FirebaseAuthService _authService
+
+<PageTitle>Perfil del Usuario</PageTitle>
+<PageHeader Title="Perfil del Usuario"></PageHeader>
+@if (currentUser == null)
+{
+    <p><em>Cargando perfil de usuario...</em></p>
+}
+else
+{
+    <div class="card" style="width: 18rem;">
+        <img src="@currentUser.PhotoUrl" class="card-img-top" alt="Foto de perfil">
+        <div class="card-body">
+            <h5 class="card-title">@currentUser.DisplayName</h5>
+            <p class="card-text"><strong>Email:</strong> @currentUser.Email</p>
+        </div>
+    </div>
+}
+
+@code {
+    FirebaseUser currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!await _authService.IsUserAuthenticated())
+        {
+            NavigationManager.NavigateTo("/login");
+            return;
+        }
+        currentUser = await _authService.GetUserFirebase();
+    }
+}

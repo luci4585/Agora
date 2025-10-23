@@ -12,7 +12,7 @@ namespace Service.Models
         public string Nombre { get; set; } = string.Empty;
         public string Detalle { get; set; } = string.Empty;
         public string Ponente { get; set; } = string.Empty;
-        public DateTime FechaHora { get; set; }
+        public DateTime FechaHora { get; set; } = DateTime.Now;
         public int Cupo { get; set; }
         public bool InscripcionAbierta { get; set; } = false;
         public bool IsDeleted { get; set; } = false;

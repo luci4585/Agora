@@ -49,21 +49,6 @@
         </div>
     </div>
 }
-else
-{
-    <div class="card text-center">
-        <div class="card-header">
-            Cerrar sesión de Ágora
-        </div>
-        <div class="card-body">
-
-            <button class="btn btn-primary" @onclick="Desloguear">Cerrar sesión</button>
-        </div>
-        <div class="card-footer text-body-secondary">
-            Desarrollo de 2do año - TSDS - 2025 
-        </div>
-    </div>
-}
 
 @code 
 {
@@ -75,6 +60,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         isAuthenticated = await _firebaseAuthService.IsUserAuthenticated();
+        if(isAuthenticated)
+        {
+            _navigationManager.NavigateTo("/perfilusuario");
+        }
     }
 
     private async Task Loguear()
@@ -115,7 +104,7 @@ else
         if (user != null)
         {
             isAuthenticated = true;
-            StateHasChanged();
+            _navigationManager.NavigateTo("/perfilusuario");
         }
         else
         {
