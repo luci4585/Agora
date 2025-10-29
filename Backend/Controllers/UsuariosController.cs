@@ -90,10 +90,14 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-            //controlamos que el email no exista ya en la base de datos
-            if (_context.Usuarios.Any(u => u.Email == usuario.Email))
+            //controlamos que el email no exista ya en la base de datos 
+            if (_context.Usuarios.IgnoreQueryFilters().Any(u => u.Email == usuario.Email))
             {
-                return Conflict("Error, existe un usuario ya registrado con ese Email");
+                return Conflict("Error, existe un usuario ya registrado con el email ingresado");
+            }
+            if (_context.Usuarios.Any(u => u.Dni.Trim().Replace(".", "") == usuario.Dni.Trim().Replace(".", "")))
+            {
+                return Conflict("Error, existe un usuario ya registrado con el DNI ingresado");
             }
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
