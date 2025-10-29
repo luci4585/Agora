@@ -1,4 +1,6 @@
 ﻿using Desktop.ExtensionMethod;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
 using Service.Enums;
 using Service.Models;
 using Service.Services;
@@ -11,6 +13,7 @@ namespace Desktop.Views
 {
     public partial class UsuariosView : Form
     {
+        FirebaseAuthClient _firebaseAuthClient;
         GenericService<Usuario> _usuarioService = new();
         Usuario _currentUsuario;
         List<Usuario>? _usuarios;
@@ -20,6 +23,20 @@ namespace Desktop.Views
             InitializeComponent();
             _ = GetAllData();
             CheckVerEliminados.CheckedChanged += DisplayHideControlsRestoreButton;
+        }
+        private void SettingFirebase()
+        {
+            var config = new FirebaseAuthConfig()
+            {
+                ApiKey = Service.Properties.Resources.ApiKeyFirebase,
+                AuthDomain = Service.Properties.Resources.AuthDomainFirebase,
+                Providers = new FirebaseAuthProvider[]
+                {
+                     new EmailProvider()
+
+                }
+            };
+            _firebaseAuthClient = new FirebaseAuthClient(config);
         }
 
         private void DisplayHideControlsRestoreButton(object sender, EventArgs e)
@@ -46,6 +63,7 @@ namespace Desktop.Views
             DataGrid.DataSource = _usuarios;
             DataGrid.Columns["Id"].Visible = false;
             DataGrid.Columns["IsDeleted"].Visible = false;
+            DataGrid.Columns["DeleteDate"].Visible = false;
             GetComboTiposDeUsuarios();
         }
 
@@ -117,6 +135,9 @@ namespace Desktop.Views
                 TxtDni.Text = _currentUsuario.Dni;
                 TxtEmail.Text = _currentUsuario.Email;
                 ComboTiposDeUsuarios.SelectedItem = _currentUsuario.TipoUsuario;
+
+                TabControl.SelectedTab = TabPageAgregarEditar;
+
 
             }
             else
@@ -200,6 +221,20 @@ namespace Desktop.Views
             {
                 var nuevousuario = await _usuarioService.AddAsync(usuarioAGuardar);
                 response = nuevousuario != null;
+                if (response)
+                {
+                    //Crear usuario en Firebase Auth
+                    try
+                    {
+                        var userCredential = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(nuevousuario.Email,
+                           TxtEmail.Text.Trim()
+                          );
+                    }
+                    catch (FirebaseAuthException ex)
+                    {
+                        MessageBox.Show("Error al crear el usuario en Firebase Auth: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             if (response)
             {
