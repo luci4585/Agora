@@ -9,6 +9,20 @@ var configuration = new ConfigurationBuilder()
 .Build();
 string? cadenaConexion = configuration.GetConnectionString("mysqlRemote");
 
+//configuración de inyección de dependencias del DBContext
+builder.Services.AddDbContext<AgoraContext>(
+    dbOptions => dbOptions.UseMySql(
+        cadenaConexion,
+        ServerVersion.AutoDetect(cadenaConexion),
+        mySqlOptions => mySqlOptions
+            .EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null)
+            .EnableStringComparisonTranslations() // Habilita traducción de StringComparison (Contains, StartsWith, etc.)
+    )
+);
+
 //configuración de inyección de dependencias del DBContextdotnet dev-certs https --trust
 
 builder.Services.AddDbContext<AgoraContext>(
