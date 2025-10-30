@@ -123,6 +123,9 @@ namespace Desktop.Views
                 checkInscripcionAbierta.Checked = _currentCapacitacion.InscripcionAbierta;
                 TabControl.SelectedTab = TabPageAgregarEditar;
                 GridTiposInscripciones.DataSource = _currentCapacitacion.TiposDeInscripciones;
+                GridTiposInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
+                //mostramos la columna costo como moneda con 2 decimales
+                GridTiposInscripciones.Columns["Costo"].DefaultCellStyle.Format = "C2"; 
             }
             else
             {
@@ -241,6 +244,7 @@ namespace Desktop.Views
             _currentCapacitacion?.TiposDeInscripciones.Add(tipoInscripcionCapacitacion);
             GridTiposInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
             GridTiposInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
+            GridTiposInscripciones.Columns["Costo"].DefaultCellStyle.Format = "C2";
         }
 
         private void BtnQuitar_Click(object sender, EventArgs e)
