@@ -122,7 +122,7 @@ namespace Desktop.Views
                 NumericCupo.Value = _currentCapacitacion.Cupo;
                 checkInscripcionAbierta.Checked = _currentCapacitacion.InscripcionAbierta;
                 TabControl.SelectedTab = TabPageAgregarEditar;
-
+                GridTiposInscripciones.DataSource = _currentCapacitacion.TiposDeInscripciones;
             }
             else
             {
