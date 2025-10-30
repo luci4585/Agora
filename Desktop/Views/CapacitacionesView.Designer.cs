@@ -399,7 +399,7 @@
             BtnGuardar.Location = new Point(436, 423);
             BtnGuardar.Margin = new Padding(2);
             BtnGuardar.Name = "BtnGuardar";
-            BtnGuardar.Size = new Size(118, 43);
+            BtnGuardar.Size = new Size(124, 49);
             BtnGuardar.TabIndex = 6;
             BtnGuardar.Text = "&Guardar";
             BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
