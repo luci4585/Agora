@@ -221,18 +221,21 @@ namespace Desktop.Views
             {
                 var nuevousuario = await _usuarioService.AddAsync(usuarioAGuardar);
                 response = nuevousuario != null;
+
                 if (response)
                 {
-                    //Crear usuario en Firebase Auth
+                    // Crear el usuario en Firebase Authentication
                     try
                     {
-                        var userCredential = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(nuevousuario.Email,
-                           TxtEmail.Text.Trim()
-                          );
+                        var userCredential = await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(
+                            nuevousuario.Email,
+                            TxtPassword.Text.Trim(),
+                            nuevousuario.Nombre + " " + nuevousuario.Apellido// Contraseña por defecto, se recomienda cambiarla luego
+                        );
                     }
                     catch (FirebaseAuthException ex)
                     {
-                        MessageBox.Show("Error al crear el usuario en Firebase Auth: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Error al crear el usuario en Firebase: {ex.Reason}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
