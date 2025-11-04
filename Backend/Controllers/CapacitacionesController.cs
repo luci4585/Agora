@@ -113,6 +113,10 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Capacitacion>> PostCapacitacion(Capacitacion capacitacion)
         {
+            foreach(var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
+            {                 
+                _context.Attach(tipoInscripcionCapacitacion.TipoInscripcion);
+            }
             _context.Capacitaciones.Add(capacitacion);
             await _context.SaveChangesAsync();
 

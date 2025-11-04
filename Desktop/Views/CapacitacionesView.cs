@@ -12,7 +12,7 @@ namespace Desktop.Views
     {
         GenericService<Capacitacion> _capacitacionService = new GenericService<Capacitacion>();
         GenericService<TipoInscripcion> _tipoInscripcionService = new();
-        Capacitacion _currentCapacitacion;
+        Capacitacion? _currentCapacitacion;
         List<Capacitacion>? _capacitaciones;
 
         public CapacitacionesView()
@@ -22,7 +22,7 @@ namespace Desktop.Views
             CheckVerEliminados.CheckedChanged += DisplayHideControlsRestoreButton;
         }
 
-        private void DisplayHideControlsRestoreButton(object sender, EventArgs e)
+        private void DisplayHideControlsRestoreButton(object? sender, EventArgs e)
         {
             BtnRestaurar.Visible = CheckVerEliminados.Checked;
             BtnEliminar.Enabled = !CheckVerEliminados.Checked;
@@ -95,6 +95,7 @@ namespace Desktop.Views
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
             LimpiarControlesAgregarEditar();
+            _currentCapacitacion = new Capacitacion();
             TabControl.SelectedTab = TabPageAgregarEditar;
         }
         private void LimpiarControlesAgregarEditar()
@@ -189,36 +190,39 @@ namespace Desktop.Views
 
         private async void BtnGuardar_Click_1(object sender, EventArgs e)
         {
+            _currentCapacitacion.Nombre = TxtNombre.Text;
+            _currentCapacitacion.Detalle = TxtDetalle.Text;
+            _currentCapacitacion.Ponente = TxtPonente.Text;
+            _currentCapacitacion.FechaHora = DateTimeFechaHora.Value;
+            _currentCapacitacion.Cupo = (int)NumericCupo.Value;
+            _currentCapacitacion.InscripcionAbierta = checkInscripcionAbierta.Checked;
 
-            Capacitacion capacitacionAGuardar = new Capacitacion
+            bool successfull = false;
+            try
             {
-                Id = _currentCapacitacion?.Id ?? 0,
-                Nombre = TxtNombre.Text,
-                Detalle = TxtDetalle.Text,
-                Ponente = TxtPonente.Text,
-                FechaHora = DateTimeFechaHora.Value,
-                Cupo = (int)NumericCupo.Value,
-                InscripcionAbierta = checkInscripcionAbierta.Checked
-
-            };
-            bool response = false;
-            if (_currentCapacitacion != null)
-            {
-                response = await _capacitacionService.UpdateAsync(capacitacionAGuardar);
+                if (_currentCapacitacion.Id == 0)
+                {
+                    var nuevacapacitacion = await _capacitacionService.AddAsync(_currentCapacitacion);
+                    successfull = nuevacapacitacion != null;
+                }
+                if (_currentCapacitacion.Id > 0) //modificando capacitaciones existentes
+                {
+                    successfull = await _capacitacionService.UpdateAsync(_currentCapacitacion);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var nuevacapacitacion = await _capacitacionService.AddAsync(capacitacionAGuardar);
-                response = nuevacapacitacion != null;
+                MessageBox.Show($"Error al guardar la capacitación: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            if (response)
+            if (successfull)
             {
-                _currentCapacitacion = null; // Reset the modified movie after saving
-                LabelStatusMessage.Text = $"Capacitacion {capacitacionAGuardar.Nombre} guardada correctamente";
+                LabelStatusMessage.Text = $"Capacitacion {_currentCapacitacion.Nombre} guardada correctamente";
                 TimerStatusBar.Start(); // Iniciar el temporizador para mostrar el mensaje en la barra de estado
                 await GetAllData();
                 LimpiarControlesAgregarEditar();
                 TabControl.SelectedTab = TabPageLista;
+                _currentCapacitacion = null; // Reset the modified movie after saving
             }
             else
             {
@@ -238,11 +242,10 @@ namespace Desktop.Views
                 TipoInscripcionId = (int)ComboTiposInscripciones.SelectedValue,
                 TipoInscripcion = (TipoInscripcion)ComboTiposInscripciones.SelectedItem,
                 CapacitacionId = _currentCapacitacion?.Id ?? 0,
-                Capacitacion = _currentCapacitacion,
                 Costo = NumericCosto.Value
             };
-            _currentCapacitacion?.TiposDeInscripciones.Add(tipoInscripcionCapacitacion);
-            GridTiposInscripciones.DataSource = _currentCapacitacion?.TiposDeInscripciones.ToList();
+            _currentCapacitacion?.TiposDeInscripciones?.Add(tipoInscripcionCapacitacion);
+            GridTiposInscripciones.DataSource =_currentCapacitacion?.TiposDeInscripciones?.ToList();
             GridTiposInscripciones.HideColumns("Id", "CapacitacionId", "Capacitacion", "TipoInscripcionId", "IsDeleted");
             GridTiposInscripciones.Columns["Costo"].DefaultCellStyle.Format = "C2";
         }

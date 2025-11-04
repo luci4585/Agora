@@ -55,19 +55,27 @@ namespace Desktop.Views
 
         private async Task GetAllData()
         {
-            if (CheckVerEliminados.Checked)
+            try
             {
-                _usuarios = await _usuarioService.GetAllDeletedsAsync();
+                if (CheckVerEliminados.Checked)
+                {
+                    _usuarios = await _usuarioService.GetAllDeletedsAsync();
+                }
+                else
+                {
+                    _usuarios = await _usuarioService.GetAllAsync();
+
+                    DataGrid.DataSource = _usuarios;
+                    DataGrid.Columns["Id"].Visible = false;
+                    DataGrid.Columns["IsDeleted"].Visible = false;
+                    DataGrid.Columns["DeleteDate"].Visible = false;
+                    GetComboTiposDeUsuarios();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _usuarios = await _usuarioService.GetAllAsync();
+                MessageBox.Show($"Error al obtener los usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            DataGrid.DataSource = _usuarios;
-            DataGrid.Columns["Id"].Visible = false;
-            DataGrid.Columns["IsDeleted"].Visible = false;
-            DataGrid.Columns["DeleteDate"].Visible = false;
-            GetComboTiposDeUsuarios();
         }
 
         private void GetComboTiposDeUsuarios()
