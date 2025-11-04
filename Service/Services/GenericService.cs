@@ -42,7 +42,7 @@ namespace Service.Services
             var content = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Error al obtener los datos: {response.StatusCode}");
+                throw new Exception($"Error al obtener los datos: {response.StatusCode} - {content}");
             }
             return JsonSerializer.Deserialize<T>(content, _options);
         }
