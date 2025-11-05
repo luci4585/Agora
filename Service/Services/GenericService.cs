@@ -62,9 +62,10 @@ namespace Service.Services
         {
             var idValue = entity.GetType().GetProperty("Id").GetValue(entity);
             var response=await _httpClient.PutAsJsonAsync($"{ _endpoint}/{idValue}", entity);
+            var content = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Hubo un problema al actualizar");
+                throw new Exception("Hubo un problema al actualizar: {response.StatusCode} - {content}");
             }
             else 
             { 

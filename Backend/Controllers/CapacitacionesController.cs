@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Backend.DataContext;
 using Service.Models;
 using System.Net.WebSockets;
+using Backend.ExtensionMethods;
 
 namespace Backend.Controllers
 {
@@ -90,7 +91,7 @@ namespace Backend.Controllers
             //atachamos las entidades TipoInscripcion para que no intente crearlas de nuevo
             foreach (var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
             {
-                _context.Attach(tipoInscripcionCapacitacion.TipoInscripcion);
+                _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
             }
 
             var capacitacionExistente = await _context.Capacitaciones
@@ -116,7 +117,7 @@ namespace Backend.Controllers
 
             foreach (var tipoInscripcionCapacitacion in tipodeInscripcionesAAgregar)
             {
-                _context.Attach(tipoInscripcionCapacitacion.TipoInscripcion);
+                _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
                 _context.TiposInscripcionesCapacitaciones.Add(tipoInscripcionCapacitacion);
             }
 
