@@ -88,19 +88,21 @@ namespace Backend.Controllers
             {
                 return BadRequest();
             }
-            //atachamos las entidades TipoInscripcion para que no intente crearlas de nuevo
+            _context.Entry(capacitacion).State = EntityState.Modified;
+
+            // Attach las entidades TipoInscripcion para que no intente guardarlas nuevamente
             foreach (var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
             {
                 _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
             }
 
             var capacitacionExistente = await _context.Capacitaciones
-                                                .AsNoTracking()
                                                 .Include(c => c.TiposDeInscripciones)
+                                                .AsNoTracking()
                                                 .FirstOrDefaultAsync(c => c.Id == capacitacion.Id);
             if (capacitacionExistente == null)
             {
-                return NotFound("No se encontró la capacitación que se intentaba modoficar");
+                return NotFound("No se encontró la capacitación que se intentaba modificar");
             }
             var tipodeInscripcionesAEliminar = capacitacionExistente.TiposDeInscripciones
                                                 .Where(t => !capacitacion.TiposDeInscripciones
@@ -108,21 +110,21 @@ namespace Backend.Controllers
                                                 .ToList();
             foreach (var tipoInscripcionCapacitacion in tipodeInscripcionesAEliminar)
             {
+                _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
+                tipoInscripcionCapacitacion.Capacitacion = null;
                 _context.TiposInscripcionesCapacitaciones.Remove(tipoInscripcionCapacitacion);
             }
-            var tipodeInscripcionesAAgregar = capacitacion.TiposDeInscripciones
+
+            var tiposDeInscripcionesAAgregar = capacitacion.TiposDeInscripciones
                                                 .Where(ti => !capacitacionExistente.TiposDeInscripciones
                                                 .Any(t => t.Id == ti.Id))
                                                 .ToList();
 
-            foreach (var tipoInscripcionCapacitacion in tipodeInscripcionesAAgregar)
+            foreach (var tipoInscripcionCapacitacion in tiposDeInscripcionesAAgregar)
             {
                 _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
                 _context.TiposInscripcionesCapacitaciones.Add(tipoInscripcionCapacitacion);
             }
-
-
-                _context.Entry(capacitacion).State = EntityState.Modified;
 
             try
             {
