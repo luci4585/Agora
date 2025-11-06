@@ -91,12 +91,12 @@
             // 
             GridInscripciones.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             GridInscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GridInscripciones.Location = new Point(21, 219);
+            GridInscripciones.Location = new Point(21, 168);
             GridInscripciones.Name = "GridInscripciones";
             GridInscripciones.RowHeadersVisible = false;
             GridInscripciones.RowHeadersWidth = 51;
             GridInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            GridInscripciones.Size = new Size(581, 414);
+            GridInscripciones.Size = new Size(581, 465);
             GridInscripciones.TabIndex = 11;
             // 
             // panel2
@@ -117,7 +117,7 @@
             // 
             // label4
             // 
-            label4.AutoSize = true;
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.Font = new Font("Segoe UI", 12F);
             label4.Location = new Point(38, 341);
             label4.Name = "label4";
@@ -127,12 +127,12 @@
             // 
             // ComboTipoInscripcion
             // 
-            ComboTipoInscripcion.Anchor = AnchorStyles.Left;
+            ComboTipoInscripcion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ComboTipoInscripcion.Font = new Font("Segoe UI", 12F);
             ComboTipoInscripcion.FormattingEnabled = true;
             ComboTipoInscripcion.Location = new Point(38, 387);
             ComboTipoInscripcion.Name = "ComboTipoInscripcion";
-            ComboTipoInscripcion.Size = new Size(331, 36);
+            ComboTipoInscripcion.Size = new Size(699, 36);
             ComboTipoInscripcion.TabIndex = 19;
             // 
             // BtnAgregarUsuario
@@ -150,6 +150,7 @@
             BtnAgregarUsuario.TextAlign = ContentAlignment.MiddleRight;
             BtnAgregarUsuario.UseCompatibleTextRendering = true;
             BtnAgregarUsuario.UseVisualStyleBackColor = true;
+            BtnAgregarUsuario.Click += BtnAgregarUsuario_Click;
             // 
             // BtnBuscar
             // 

@@ -29,6 +29,8 @@ namespace Backend.Controllers
         {
             return await _context.Capacitaciones.AsNoTracking()
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t=> t.TipoInscripcion)
+                .Include(c => c.Inscripciones).ThenInclude(i=>i.Usuario)
+                .Include(c => c.Inscripciones).ThenInclude(i=>i.UsuarioCobro)
                 .Where(c => c.Nombre.Contains(filter, StringComparison.OrdinalIgnoreCase)
                     || c.Detalle.Contains(filter, StringComparison.OrdinalIgnoreCase)
                     || c.Ponente.Contains(filter, StringComparison.OrdinalIgnoreCase))
@@ -38,6 +40,8 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesAbiertas([FromQuery] string? filter = "")
         {
             return await _context.Capacitaciones.AsNoTracking()
+                .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
+                .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
                 .Where(c => c.InscripcionAbierta&&
                       (c.Nombre.Contains(filter) || 
@@ -49,6 +53,8 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<Capacitacion>>> GetCapacitacionesFuturas([FromQuery] string? filter = "")
         {
             return await _context.Capacitaciones.AsNoTracking()
+                .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
+                .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
                 .Where(c => !c.InscripcionAbierta 
                     && c.FechaHora.Date>DateTime.Now.Date 
@@ -90,6 +96,7 @@ namespace Backend.Controllers
             }
             _context.Entry(capacitacion).State = EntityState.Modified;
 
+            #region Manejo de Tipos de Inscripciones
             // Attach las entidades TipoInscripcion para que no intente guardarlas nuevamente
             foreach (var tipoInscripcionCapacitacion in capacitacion.TiposDeInscripciones)
             {
@@ -98,6 +105,7 @@ namespace Backend.Controllers
 
             var capacitacionExistente = await _context.Capacitaciones
                                                 .Include(c => c.TiposDeInscripciones)
+                                                .Include(c => c.Inscripciones)
                                                 .AsNoTracking()
                                                 .FirstOrDefaultAsync(c => c.Id == capacitacion.Id);
             if (capacitacionExistente == null)
@@ -125,6 +133,46 @@ namespace Backend.Controllers
                 _context.TryAttach(tipoInscripcionCapacitacion.TipoInscripcion);
                 _context.TiposInscripcionesCapacitaciones.Add(tipoInscripcionCapacitacion);
             }
+            #endregion
+            #region Manejo de ICollection Inscripciones
+            // Attach las entidades Usuario UsuarioCobro para que no intente guardarlas nuevamente
+            foreach (var inscripcion in capacitacion.Inscripciones)
+            {
+                _context.TryAttach(inscripcion.Usuario);
+                _context.TryAttach(inscripcion.UsuarioCobro);
+                inscripcion.TipoInscripcion = null;
+                inscripcion.Capacitacion = null;
+            }
+
+            var inscripcionesAEliminar = capacitacionExistente.Inscripciones
+                                                .Where(t => !capacitacion.Inscripciones
+                                                .Any(ti => ti.Id == t.Id))
+                                                .ToList();
+            foreach (var inscripcion1 in inscripcionesAEliminar)
+            {
+                inscripcion1.Usuario = null;
+                inscripcion1.UsuarioCobro = null;
+                inscripcion1.TipoInscripcion = null;
+                inscripcion1.Capacitacion = null;
+                _context.Inscripciones.Remove(inscripcion1);
+            }
+
+            var inscripcionesAAgregar = capacitacion.Inscripciones
+                                                .Where(ti => !capacitacionExistente.Inscripciones
+                                                .Any(t => t.Id == ti.Id))
+                                                .ToList();
+
+            foreach (var inscripcion2 in inscripcionesAAgregar)
+            {
+                inscripcion2.Usuario = null;
+                inscripcion2.UsuarioCobro = null;
+                inscripcion2.TipoInscripcion = null;
+                inscripcion2.Capacitacion = null;
+                _context.Inscripciones.Add(inscripcion2);
+            }
+            #endregion
+
+
 
             try
             {
