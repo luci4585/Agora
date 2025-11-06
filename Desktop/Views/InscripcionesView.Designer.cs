@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             label1 = new Label();
             ComboCapacitaciones = new ComboBox();
@@ -41,10 +42,13 @@
             TxtBuscarInscriptos = new TextBox();
             GridUsuarios = new DataGridView();
             label3 = new Label();
+            ContextMenuInscripcion = new ContextMenuStrip(components);
+            SubMenuEliminarInscripcion = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)GridInscripciones).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)GridUsuarios).BeginInit();
+            ContextMenuInscripcion.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -98,6 +102,7 @@
             GridInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridInscripciones.Size = new Size(581, 465);
             GridInscripciones.TabIndex = 11;
+            GridInscripciones.MouseClick += GridInscripciones_MouseClick;
             // 
             // panel2
             // 
@@ -201,6 +206,20 @@
             label3.TabIndex = 11;
             label3.Text = "Agregar inscripción";
             // 
+            // ContextMenuInscripcion
+            // 
+            ContextMenuInscripcion.ImageScalingSize = new Size(20, 20);
+            ContextMenuInscripcion.Items.AddRange(new ToolStripItem[] { SubMenuEliminarInscripcion });
+            ContextMenuInscripcion.Name = "ContextMenuInscripcion";
+            ContextMenuInscripcion.Size = new Size(211, 56);
+            // 
+            // SubMenuEliminarInscripcion
+            // 
+            SubMenuEliminarInscripcion.Name = "SubMenuEliminarInscripcion";
+            SubMenuEliminarInscripcion.Size = new Size(210, 24);
+            SubMenuEliminarInscripcion.Text = "&Eliminar";
+            SubMenuEliminarInscripcion.Click += SubMenuEliminarInscripcion_Click;
+            // 
             // InscripcionesView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -220,6 +239,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)GridUsuarios).EndInit();
+            ContextMenuInscripcion.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -239,5 +259,7 @@
         private FontAwesome.Sharp.IconButton BtnAgregarUsuario;
         private ComboBox ComboTipoInscripcion;
         private Label label4;
+        private ContextMenuStrip ContextMenuInscripcion;
+        private ToolStripMenuItem SubMenuEliminarInscripcion;
     }
 }

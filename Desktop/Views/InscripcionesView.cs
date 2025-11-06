@@ -64,7 +64,7 @@ namespace Desktop.Views
         private void GetComboTiposDeInscripciones(Capacitacion selectedCapacitacion)
         {
             ComboTipoInscripcion.DataSource = selectedCapacitacion.TiposDeInscripciones.ToList();
-            ComboTipoInscripcion.DisplayMember = "TipoInscripcion";
+            ComboTipoInscripcion.DisplayMember = "TipoInscripcionConImporte";
             ComboTipoInscripcion.ValueMember = "TipoInscripcionId";
             ComboTipoInscripcion.SelectedIndex = -1;
         }
@@ -75,7 +75,13 @@ namespace Desktop.Views
             //_inscripciones = await _inscripcionesService.GetInscriptosAsync(selectedCapacitacion.Id);
             GridInscripciones.DataSource = _inscripciones;
             //ocultamos las columnas Id, CapacitacionId, UsuarioId, TipoInscripcionId, Capacitacion
-            GridInscripciones.HideColumns("Id", "CapacitacionId", "UsuarioId", "TipoInscripcionId", "Capacitacion", "UsuarioCobroId", "IsDeleted");
+            GridInscripciones.HideColumns("Id", "CapacitacionId", "UsuarioId", "TipoInscripcionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
+            if (GridInscripciones.Columns.Contains("Importe"))
+            {
+                GridInscripciones.Columns["Importe"].DefaultCellStyle.Format = "C2";
+                GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
             await GetGrillaUsuarios();
         }
 
@@ -128,6 +134,7 @@ namespace Desktop.Views
             {
                 UsuarioId = selectedUsuario.Id,
                 Usuario = selectedUsuario,
+                Importe = selectedTipoInscripcion.Costo,
                 CapacitacionId = selectedCapacitacion.Id,
                 TipoInscripcionId = selectedTipoInscripcion.TipoInscripcionId,
                 TipoInscripcion = selectedTipoInscripcion.TipoInscripcion,
@@ -141,8 +148,50 @@ namespace Desktop.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show($"Error al inscribir el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+
+        private async void SubMenuEliminarInscripcion_Click(object sender, EventArgs e)
+        {
+            //controlamos que haya una inscripción seleccionada
+            if (GridInscripciones.CurrentRow?.DataBoundItem is not Inscripcion selectedInscripcion)
+            {
+                MessageBox.Show("Seleccione una inscripción para eliminar.");
+                return;
+            }
+            //preguntamos si está seguro de eliminar la inscripción
+            var confirmResult = MessageBox.Show($"¿Está seguro de eliminar la inscripción de: {selectedInscripcion.Usuario}?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                //selecciono la capacitación actual para actualizar
+                if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
+                {
+                    selectedCapacitacion.Inscripciones.Remove(selectedInscripcion);
+                    try
+                    {
+                        await _capacitacionService.UpdateAsync(selectedCapacitacion);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al eliminar la inscripción: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                _inscripciones?.Remove(selectedInscripcion);
+                RefreshInscripciones((Capacitacion)ComboCapacitaciones.SelectedItem);
+
+            }
+        }
+
+        private void GridInscripciones_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                //llamamos al menu contextual
+                ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
+
             }
         }
     }

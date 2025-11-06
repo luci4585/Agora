@@ -31,6 +31,7 @@ namespace Backend.Controllers
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t=> t.TipoInscripcion)
                 .Include(c => c.Inscripciones).ThenInclude(i=>i.Usuario)
                 .Include(c => c.Inscripciones).ThenInclude(i=>i.UsuarioCobro)
+                .Include(c => c.Inscripciones).ThenInclude(i=>i.TipoInscripcion)
                 .Where(c => c.Nombre.Contains(filter, StringComparison.OrdinalIgnoreCase)
                     || c.Detalle.Contains(filter, StringComparison.OrdinalIgnoreCase)
                     || c.Ponente.Contains(filter, StringComparison.OrdinalIgnoreCase))
@@ -42,6 +43,7 @@ namespace Backend.Controllers
             return await _context.Capacitaciones.AsNoTracking()
                 .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
                 .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+                .Include(c => c.Inscripciones).ThenInclude(i => i.TipoInscripcion)
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
                 .Where(c => c.InscripcionAbierta&&
                       (c.Nombre.Contains(filter) || 
@@ -55,6 +57,7 @@ namespace Backend.Controllers
             return await _context.Capacitaciones.AsNoTracking()
                 .Include(c => c.Inscripciones).ThenInclude(i => i.Usuario)
                 .Include(c => c.Inscripciones).ThenInclude(i => i.UsuarioCobro)
+                .Include(c => c.Inscripciones).ThenInclude(i => i.TipoInscripcion)
                 .Include(c => c.TiposDeInscripciones).ThenInclude(t => t.TipoInscripcion)
                 .Where(c => !c.InscripcionAbierta 
                     && c.FechaHora.Date>DateTime.Now.Date 
