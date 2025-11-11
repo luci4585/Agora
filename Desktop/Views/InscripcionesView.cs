@@ -68,7 +68,7 @@ namespace Desktop.Views
             ComboTipoInscripcion.ValueMember = "TipoInscripcionId";
             ComboTipoInscripcion.SelectedIndex = -1;
         }
-
+        
         private async void RefreshInscripciones(Capacitacion selectedCapacitacion)
         {
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
@@ -83,8 +83,68 @@ namespace Desktop.Views
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Format = "C2";
                 GridInscripciones.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
-
+            AgregarBotonAnularInscripcion();
             await GetGrillaUsuarios();
+        }
+
+        private void AgregarBotonAnularInscripcion()
+        {
+            if (GridInscripciones.Columns["Acciones"] == null)
+            {
+                // Agrego un botón para agregar la transferencias a la caja del empleado current
+                DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+                buttonColumn.Name = "Acciones"; // Especificamos el nombre para poder referenciarlo luego
+                buttonColumn.HeaderText = "Acciones";
+                buttonColumn.Text = "Anular inscripción";
+                buttonColumn.UseColumnTextForButtonValue = true;
+                GridInscripciones.Columns.Add(buttonColumn);
+                // Defino el evento para el botón.
+                GridInscripciones.CellContentClick += AnularInscripcion();
+            }
+        }
+
+        private DataGridViewCellEventHandler AnularInscripcion()
+        {
+            return async (sender, e) =>
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == GridInscripciones.Columns["Acciones"].Index)
+                {
+                    var selectedInscripcion = GridInscripciones.Rows[e.RowIndex].DataBoundItem as Inscripcion;
+                    // obtenemos la inscripción seleccionada
+                    if (selectedInscripcion == null)
+                    {
+                        MessageBox.Show("Seleccione una inscripción para anular.");
+                        return;
+                    }
+                    //preguntamos si está seguro de anular la inscripción
+                    var confirmResult = MessageBox.Show($"¿Está seguro de anular la inscripción de: {selectedInscripcion.Usuario}?", "Confirmar anulación", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        await DeleteIncripcion(selectedInscripcion);
+                    }
+                }
+            };
+        }
+
+        private async Task DeleteIncripcion(Inscripcion selectedInscripcion)
+        {
+            //selecciono la capacitación actual para actualizar
+            if (ComboCapacitaciones.SelectedItem is Capacitacion selectedCapacitacion)
+            {
+                selectedCapacitacion.Inscripciones.Remove(selectedInscripcion);
+                try
+                {
+                    await _capacitacionService.UpdateAsync(selectedCapacitacion);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al anular la inscripción: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    selectedCapacitacion.Inscripciones.Add(selectedInscripcion); // Revertir el cambio en caso de error
+                    return;
+                }
+            }
+            _inscripciones?.Remove(selectedInscripcion);
+            RefreshInscripciones((Capacitacion)ComboCapacitaciones.SelectedItem);
         }
 
         private void BtnBuscar_Click(object sender, EventArgs e)
