@@ -1,4 +1,5 @@
 ﻿using Desktop.ExtensionMethod;
+using Service.Interfaces;
 using Service.Models;
 using Service.Services;
 using System;
@@ -100,14 +101,27 @@ namespace Desktop.Views
                     //preguntamos si está seguro de acreditar la inscripción
                     selectedInscripcion.Acreditado = true;
                     try
-                    {
+                    { 
+
                         if (await _inscripcionesService.UpdateAsync(selectedInscripcion))
                         {
                             //obtenemos el boton y lo deshabilitamos
                             var buttonCell = GridInscripciones.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewButtonCell;
-                            //deshabilitamos el boton
-                            buttonCell.ReadOnly = true;
+                            // "Deshabilitamos" la celda del botón (DataGridViewButtonCell no tiene Enabled)
+                            if (buttonCell != null)
+                            {
+                                buttonCell.Value = "Acreditado";
+                                buttonCell.ReadOnly = true;
 
+                                var disabledStyle = new DataGridViewCellStyle(buttonCell.Style)
+                                {
+                                    ForeColor = System.Drawing.SystemColors.GrayText,
+                                    BackColor = System.Drawing.SystemColors.Control,
+                                    SelectionForeColor = System.Drawing.SystemColors.GrayText,
+                                    SelectionBackColor = System.Drawing.SystemColors.Control
+                                };
+                                buttonCell.Style = disabledStyle;
+                            }
                         }
                     }
                     catch (Exception ex)
