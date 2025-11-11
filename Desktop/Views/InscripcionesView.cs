@@ -38,7 +38,7 @@ namespace Desktop.Views
         {
             _usuarios = (await _usuarioService.GetAllAsync());
             _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
-            GridUsuarios.DataSource = _usuarios;
+            GridUsuarios.DataSource = _usuarios.OrderBy(u=>u.Apellido).ThenBy(u=>u.Nombre).ToList();
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
         }
 
@@ -73,6 +73,8 @@ namespace Desktop.Views
         {
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
             //_inscripciones = await _inscripcionesService.GetInscriptosAsync(selectedCapacitacion.Id);
+            //ordeno las incripciones por apellido y nombre
+            _inscripciones = _inscripciones?.OrderBy(i => i.Usuario?.Apellido).ThenBy(i => i.Usuario?.Nombre).ToList();
             GridInscripciones.DataSource = _inscripciones;
             //ocultamos las columnas Id, CapacitacionId, UsuarioId, TipoInscripcionId, Capacitacion
             GridInscripciones.HideColumns("Id", "CapacitacionId", "UsuarioId", "TipoInscripcionId", "Capacitacion", "UsuarioCobroId", "IsDeleted", "UsuarioCobro", "Pagado");
