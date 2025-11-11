@@ -87,50 +87,52 @@ namespace Desktop.Views
 
         private DataGridViewCellEventHandler AcreditarInscripcion()
         {
+            // Toggle acreditación/desacreditación
             return async (sender, e) =>
             {
-                if (e.RowIndex >= 0 && e.ColumnIndex == GridInscripciones.Columns["Acciones"].Index)
+                if (e.RowIndex < 0 || e.ColumnIndex != GridInscripciones.Columns["Acciones"].Index)
+                    return;
+
+                var buttonCell = GridInscripciones.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewButtonCell;
+                var selectedInscripcion = GridInscripciones.Rows[e.RowIndex].DataBoundItem as Inscripcion;
+                if (selectedInscripcion == null)
                 {
-                    var selectedInscripcion = GridInscripciones.Rows[e.RowIndex].DataBoundItem as Inscripcion;
-                    // obtenemos la inscripción seleccionada
-                    if (selectedInscripcion == null)
+                    MessageBox.Show("Seleccione una inscripción válida.");
+                    return;
+                }
+
+                bool nuevoEstado = !selectedInscripcion.Acreditado; // toggle
+                bool estadoAnterior = selectedInscripcion.Acreditado;
+                selectedInscripcion.Acreditado = nuevoEstado;
+
+                try
+                {
+                    if (await _inscripcionesService.UpdateAsync(selectedInscripcion))
                     {
-                        MessageBox.Show("Seleccione una inscripción para acreditar.");
-                        return;
-                    }
-                    //preguntamos si está seguro de acreditar la inscripción
-                    selectedInscripcion.Acreditado = true;
-                    try
-                    { 
-
-                        if (await _inscripcionesService.UpdateAsync(selectedInscripcion))
+                        // ajustar texto según nuevo estado
+                        if (buttonCell != null)
                         {
-                            //obtenemos el boton y lo deshabilitamos
-                            var buttonCell = GridInscripciones.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewButtonCell;
-                            // "Deshabilitamos" la celda del botón (DataGridViewButtonCell no tiene Enabled)
-                            if (buttonCell != null)
-                            {
-                                buttonCell.Value = "Acreditado";
-                                buttonCell.ReadOnly = true;
-
-                                var disabledStyle = new DataGridViewCellStyle(buttonCell.Style)
-                                {
-                                    ForeColor = System.Drawing.SystemColors.GrayText,
-                                    BackColor = System.Drawing.SystemColors.Control,
-                                    SelectionForeColor = System.Drawing.SystemColors.GrayText,
-                                    SelectionBackColor = System.Drawing.SystemColors.Control
-                                };
-                                buttonCell.Style = disabledStyle;
-                            }
+                            buttonCell.Value = nuevoEstado ? "Desacreditar inscripción" : "Acreditar inscripción";
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Error al acreditar la inscripción: {ex.Message}");
-                        selectedInscripcion.Acreditado = false;
+                        // revertir si fallo service
+                        selectedInscripcion.Acreditado = estadoAnterior;
+                        if (buttonCell != null)
+                            buttonCell.Value = estadoAnterior ? "Desacreditar inscripción" : "Acreditar inscripción";
+                        MessageBox.Show("No se pudo actualizar la inscripción.");
                     }
-                    RefreshInscripciones((Capacitacion)ComboCapacitaciones.SelectedItem);
                 }
+                catch (Exception ex)
+                {
+                    selectedInscripcion.Acreditado = estadoAnterior;
+                    if (buttonCell != null)
+                        buttonCell.Value = estadoAnterior ? "Desacreditar inscripción" : "Acreditar inscripción";
+                    MessageBox.Show($"Error al actualizar la inscripción: {ex.Message}");
+                }
+
+                GridInscripciones.Refresh();
             };
         }
 
