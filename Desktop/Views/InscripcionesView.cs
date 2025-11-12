@@ -260,7 +260,10 @@ namespace Desktop.Views
 
         private void BtnImprimirInscripciones_Click(object sender, EventArgs e)
         {
-            var inscripcionesViewReport = new InscripcionesViewReport();
+            //tomamos la capacitacion seleccionada
+            var selectedCapacitacion = ComboCapacitaciones.SelectedItem as Capacitacion;
+
+            var inscripcionesViewReport = new InscripcionesViewReport(selectedCapacitacion);
             inscripcionesViewReport.MdiParent = this.MdiParent;
             inscripcionesViewReport.Show();
         }
