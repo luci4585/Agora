@@ -1,4 +1,5 @@
 ﻿using Desktop.ExtensionMethod;
+using Desktop.ViewReports;
 using Service.Models;
 using Service.Services;
 using System;
@@ -38,7 +39,7 @@ namespace Desktop.Views
         {
             _usuarios = (await _usuarioService.GetAllAsync());
             _usuarios = _usuarios?.Where(u => _inscripciones != null && !_inscripciones.Any(i => i.UsuarioId == u.Id)).ToList();
-            GridUsuarios.DataSource = _usuarios.OrderBy(u=>u.Apellido).ThenBy(u=>u.Nombre).ToList();
+            GridUsuarios.DataSource = _usuarios.OrderBy(u => u.Apellido).ThenBy(u => u.Nombre).ToList();
             GridUsuarios.HideColumns("Id", "DeleteDate", "IsDeleted");
         }
 
@@ -68,7 +69,7 @@ namespace Desktop.Views
             ComboTipoInscripcion.ValueMember = "TipoInscripcionId";
             ComboTipoInscripcion.SelectedIndex = -1;
         }
-        
+
         private async void RefreshInscripciones(Capacitacion selectedCapacitacion)
         {
             _inscripciones = selectedCapacitacion.Inscripciones.ToList();
@@ -255,6 +256,13 @@ namespace Desktop.Views
                 ContextMenuInscripcion.Show(GridInscripciones, new Point(e.X, e.Y));
 
             }
+        }
+
+        private void BtnImprimirInscripciones_Click(object sender, EventArgs e)
+        {
+            var inscripcionesViewReport = new InscripcionesViewReport();
+            inscripcionesViewReport.MdiParent = this.MdiParent;
+            inscripcionesViewReport.Show();
         }
     }
 }

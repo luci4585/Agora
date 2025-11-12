@@ -44,6 +44,7 @@
             label3 = new Label();
             ContextMenuInscripcion = new ContextMenuStrip(components);
             SubMenuEliminarInscripcion = new ToolStripMenuItem();
+            BtnImprimirInscripciones = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)GridInscripciones).BeginInit();
             panel2.SuspendLayout();
@@ -100,7 +101,7 @@
             GridInscripciones.RowHeadersVisible = false;
             GridInscripciones.RowHeadersWidth = 51;
             GridInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            GridInscripciones.Size = new Size(581, 465);
+            GridInscripciones.Size = new Size(581, 407);
             GridInscripciones.TabIndex = 11;
             GridInscripciones.MouseClick += GridInscripciones_MouseClick;
             // 
@@ -220,11 +221,29 @@
             SubMenuEliminarInscripcion.Text = "&Anular inscripción";
             SubMenuEliminarInscripcion.Click += SubMenuEliminarInscripcion_Click;
             // 
+            // BtnImprimirInscripciones
+            // 
+            BtnImprimirInscripciones.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnImprimirInscripciones.IconChar = FontAwesome.Sharp.IconChar.Print;
+            BtnImprimirInscripciones.IconColor = Color.Black;
+            BtnImprimirInscripciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnImprimirInscripciones.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnImprimirInscripciones.Location = new Point(192, 581);
+            BtnImprimirInscripciones.Name = "BtnImprimirInscripciones";
+            BtnImprimirInscripciones.Size = new Size(223, 51);
+            BtnImprimirInscripciones.TabIndex = 19;
+            BtnImprimirInscripciones.Text = "&Imprimir inscripciones";
+            BtnImprimirInscripciones.TextAlign = ContentAlignment.MiddleRight;
+            BtnImprimirInscripciones.UseCompatibleTextRendering = true;
+            BtnImprimirInscripciones.UseVisualStyleBackColor = true;
+            BtnImprimirInscripciones.Click += BtnImprimirInscripciones_Click;
+            // 
             // InscripcionesView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1449, 658);
+            Controls.Add(BtnImprimirInscripciones);
             Controls.Add(panel2);
             Controls.Add(GridInscripciones);
             Controls.Add(label2);
@@ -261,5 +280,6 @@
         private Label label4;
         private ContextMenuStrip ContextMenuInscripcion;
         private ToolStripMenuItem SubMenuEliminarInscripcion;
+        private FontAwesome.Sharp.IconButton BtnImprimirInscripciones;
     }
 }
